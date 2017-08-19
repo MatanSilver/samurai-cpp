@@ -44,33 +44,6 @@ namespace samurai {
     this->vectors.insert(vec);
     return true;
   }
-  /*
-  std::pair<bool, std::shared_ptr<vector>> model::get_or_create_vector(std::array<float, 3> pnt) {
-    auto vecs = this->get_vectors();
-    for (auto vec : this->get_vectors()) {
-      if (pnt == vec->get_point()) {
-        //return std::make_pair(true, vec); //true for found
-        std::pair<bool, std::shared_ptr<vector>> ret_pair(true, vec);
-      }
-    }
-    std::shared_ptr<vector> vec = std::make_shared<vector>(pnt);
-    //return std::make_pair(false, vec);
-    std::pair<bool, std::shared_ptr<vector>> ret_pair(false, vec);
-  }
-  */
-  /*
-  std::pair<bool, std::shared_ptr<linesegment>> model::get_or_create_linesegment(std::set<std::shared_ptr<vector>> vectors) {
-    auto lss = this->get_linesegments();
-    for (auto ls : lss) {
-      if (vectors == ls->get_vectors()) {
-        return std::make_pair(true, ls); //true for found
-      }
-    }
-    auto ls = std::make_shared<linesegment>(vectors);
-    return std::make_pair(false, ls); //false for not found
-  }
-  */
-
   std::shared_ptr<vector> model::get_or_create_vector(std::array<float, 3> pnt) {
     // TODO this is SUPER slow
     //for (auto vec : this->get_vectors()) {
