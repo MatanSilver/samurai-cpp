@@ -11,7 +11,7 @@
 int main(int argc, char **argv) {
   std::string stl_file_name = "/Users/Matan/experimental/samurai-c++/CapacitiveMount.stl";
   auto config_obj = samurai::config("config.json");
-  std::cout << config_obj.get_layer_height();
+  //std::cout << config_obj.get_layer_height();
 
   if (argc == 2) {
     stl_file_name = argv[1];
