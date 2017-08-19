@@ -1,0 +1,6 @@
+/build/*
+.gitkeep
+40mmcube.stl
+CapacitiveMount.stl
+Karambit.stl
+config.json
