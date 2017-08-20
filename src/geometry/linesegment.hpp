@@ -22,11 +22,4 @@ namespace samurai {
     std::set<std::shared_ptr<triangle>> get_triangles();
     bool insert_triangle(std::shared_ptr<triangle>);
   };
-  class layersegment {
-  private:
-  std::array<std::shared_ptr<vector>, 2> vectors;
-  public:
-  layersegment(std::set<std::shared_ptr<vector>>);
-  std::array<std::shared_ptr<vector>, 2> get_vectors();
-};
 }
