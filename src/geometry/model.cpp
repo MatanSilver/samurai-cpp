@@ -22,10 +22,27 @@ namespace samurai {
     return linelists;
   }
   float model::highest_z() {
-    return 1.0;
+    float z = 0.0;
+    for (auto v : this->vectors) {
+      if (v->get_point()[2] > z) z = v->get_point()[2];
+    }
+    return z;
   }
   float model::lowest_z() {
-    return 0.0;
+    float z = 1000.0;
+    for (auto v : this->vectors) {
+      if (v->get_point()[2] < z) z = v->get_point()[2];
+    }
+    return z;
+  }
+  bool model::rotate_x(float angle) {
+
+  }
+  bool model::rotate_y(float angle) {
+
+  }
+  bool model::rotate_z(float angle) {
+
   }
   bool model::add_triangle(std::shared_ptr<triangle> tri) {
     this->triangles.push_back(tri);

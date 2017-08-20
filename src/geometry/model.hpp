@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <list>
+#include <array>
 #include <unordered_set>
 #include <set>
 #include <utility>
@@ -26,6 +27,11 @@ namespace samurai {
     std::list<std::list<std::shared_ptr<linesegment>>> slice(float layer_height);
     float highest_z();
     float lowest_z();
+    bool rotate(std::array<float, 3>, std::array<float, 3>);
+    bool rotate_x(float);
+    bool rotate_y(float);
+    bool rotate_z(float);
+    bool translate(std::array<float, 3>);
     bool add_triangle(std::shared_ptr<triangle>);
     std::list<std::shared_ptr<triangle>> get_triangles();
     std::set<std::shared_ptr<linesegment>> get_linesegments();
