@@ -12,6 +12,13 @@ namespace samurai {
   }
   std::list<std::shared_ptr<linesegment>> model::slice_at_z(float z) {
     std::list<std::shared_ptr<linesegment>> linelist;
+    for (auto t : this->triangles) {
+      if (t->intersects_z(z)) {
+        std::set<std::shared_ptr<vector>> vecs = t->intersect_plane(z);
+        auto ls = linesegment(vecs);
+        linelist.push_back(ls);
+      }
+    }
     return linelist;
   }
   std::list<std::list<std::shared_ptr<linesegment>>> model::slice(float layer_height) {
