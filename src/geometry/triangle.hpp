@@ -21,5 +21,6 @@ namespace samurai {
     std::array<float, 3> get_normal();
     bool insert_linesegment(std::shared_ptr<linesegment>);
     bool insert_vector(std::shared_ptr<vector>);
+    bool intersects_z(float);
   };
 }
