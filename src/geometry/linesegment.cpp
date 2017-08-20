@@ -39,4 +39,10 @@ namespace samurai {
     this->triangles.insert(tri);
     return true;
   }
+  layersegment::layersegment(std::set<std::shared_ptr<vector>>) {
+
+  }
+  std::array<std::shared_ptr<vector>, 2> layersegment::get_vectors() {
+    
+  }
 }
