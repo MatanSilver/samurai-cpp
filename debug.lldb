@@ -1,0 +1,2 @@
+breakpoint set --file triangle.cpp --line 103
+breakpoint set --file triangle.cpp --line 40

@@ -22,5 +22,6 @@ namespace samurai {
     std::set<std::shared_ptr<triangle>> get_triangles();
     bool insert_linesegment(std::shared_ptr<linesegment>);
     bool insert_triangle(std::shared_ptr<triangle>);
+    void print();
   };
 }
