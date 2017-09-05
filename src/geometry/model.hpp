@@ -23,8 +23,8 @@ namespace samurai {
     #ifdef MULTI_THREAD
     std::shared_timed_mutex mtx;
     #endif
-    std::list<std::shared_ptr<linesegment>> slice_at_z(float z);
-    std::list<std::list<std::shared_ptr<linesegment>>> slice(float layer_height);
+    std::vector<std::shared_ptr<linesegment>> slice_at_z(float z);
+    std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>> slice(float layer_height);
     float highest_z();
     float lowest_z();
     bool rotate(std::array<float, 3>, std::array<float, 3>);
@@ -44,4 +44,10 @@ namespace samurai {
     bool insert_vector(std::shared_ptr<vector>);
     void print();
   };
+  bool is_ordered(std::vector<std::shared_ptr<linesegment>> &loop);
+  bool are_joined(std::shared_ptr<linesegment> ls1, std::shared_ptr<linesegment> ls2);
+  bool is_closed(std::vector<std::shared_ptr<linesegment>> &ll);
+  std::vector<std::vector<std::shared_ptr<linesegment>>> linelist_to_openloops(std::vector<std::shared_ptr<linesegment>>);
+  std::vector<std::vector<std::shared_ptr<linesegment>>> closeloops(std::vector<std::vector<std::shared_ptr<linesegment>>>);
+  bool splice_in_list(std::vector<std::shared_ptr<linesegment>> &ll1, std::vector<std::shared_ptr<linesegment>> &ll2);
 }

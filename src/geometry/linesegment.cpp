@@ -29,13 +29,18 @@ namespace samurai {
     }
     return false;
   }
-  std::set<std::shared_ptr<vector>> linesegment::get_vectors() {
+  std::vector<std::shared_ptr<vector>> linesegment::get_vectors() {
     return this->vectors;
   }
-  std::set<std::shared_ptr<triangle>> linesegment::get_triangles() {
+  std::list<std::shared_ptr<triangle>> linesegment::get_triangles() {
     return this->triangles;
   }
   bool linesegment::insert_triangle(std::shared_ptr<triangle>tri) {
+    for (auto t : this->triangles) { //check if triangle exists
+      if (t == tri) {
+        return false;
+      }
+    }
     this->triangles.insert(tri);
     return true;
   }
