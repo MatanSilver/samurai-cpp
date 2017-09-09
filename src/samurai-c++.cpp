@@ -11,7 +11,7 @@
 #include "config.hpp"
 
 int main(int argc, char **argv) {
-  std::string stl_file_name = "/Users/Matan/experimental/samurai-c++/CapacitiveMount.stl";
+  std::string stl_file_name = "/Users/Matan/experimental/samurai-c++/40mmcube.stl";
   //std::string stl_file_name = "/Users/Matan/experimental/samurai-c++/40mmcube.stl";
   auto config_obj = samurai::config("config.json");
   //std::cout << config_obj.get_layer_height();
