@@ -50,7 +50,7 @@ namespace samurai {
     }
     return true;
   }
-  std::set<std::shared_ptr<vector>> triangle::intersect_plane(float z) {
+  std::vector<std::shared_ptr<vector>> triangle::intersect_plane(float z) {
     //std::cout << "layer height: " << z << std::endl;
     std::vector<std::shared_ptr<vector>> vector_array(vectors.begin(), vectors.end());
     /*auto demisects = [](float z, std::shared_ptr<vector> vec1, std::shared_ptr<vector> vec2, std::shared_ptr<vector> vec3) {

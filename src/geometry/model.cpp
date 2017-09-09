@@ -3,6 +3,7 @@
 #include <set>
 #include <vector>
 #include <utility>
+#include <cmath>
 #include "model.hpp"
 #include "linesegment.hpp"
 #include "triangle.hpp"
@@ -16,7 +17,7 @@ namespace samurai {
     for (auto t : this->triangles) { //TODO change this to only check neighbors?
       if (t->intersects_z(z)) {
         //std::cout << "triangle intersects " << z << std::endl;
-        std::set<std::shared_ptr<vector>> vecs = t->intersect_plane(z);
+        std::vector<std::shared_ptr<vector>> vecs = t->intersect_plane(z);
         auto ls = std::make_shared<linesegment>(vecs);
         for (auto v : vecs) {
           v->insert_linesegment(ls);
@@ -46,41 +47,57 @@ namespace samurai {
     return openloops;
   }
   bool splice_in_list(std::vector<std::shared_ptr<linesegment>> *ll1, std::vector<std::shared_ptr<linesegment>> *ll2) {
-    if (!ll1.is_ordered() || !ll2.is_ordered()) {
-      throw std::exception("illegal splice of unordered list");
+
+    if (!is_ordered(ll1) || !is_ordered(ll2)) {
+      throw std::runtime_error("illegal splice of unordered list");
       return false;
     } //TODO check all conditionals
-    if (vector_approx(*ll2[ll2->size() - 1]->get_vectors()[1], *ll1[0]->get_vectors[0]) == true) { //forwards in beginning
+    if (vector_approx((*ll2)[ll2->size() - 1]->get_vectors()[1], (*ll1)[0]->get_vectors()[0]) == true) { //forwards in beginning
       ll1->insert(ll1->begin(), ll2->begin(), ll2->end());
-    } else if (vector_approx(*ll2[0]->get_vectors()[0], *ll1[ll1->size() - 1]->get_vectors()[1]) == true) { //forwards at end
+    } else if (vector_approx((*ll2)[0]->get_vectors()[0], (*ll1)[ll1->size() - 1]->get_vectors()[1]) == true) { //forwards at end
       ll1->insert(ll1->end(), ll2->begin(), ll2->end());
-    } else if (vector_approx((*ll2)[0]->get_vectors()[0], (*ll1)[ll1->size() - 1]->get_vectors(1)) == true) { //backwards at beginning
+    } else if (vector_approx((*ll2)[0]->get_vectors()[0], (*ll1)[ll1->size() - 1]->get_vectors()[1]) == true) { //backwards at beginning
       flip(ll2);
-      ll1->insert(ll1.begin(), ll2.begin(), ll2.end());
-    } else if (vector_approx(*ll2[ll2->size() - 1]->get_vectors()[1], *ll1[ll1->size() - 1]->get_vectors()[1]) == true) { //backwards at end
+      ll1->insert(ll1->begin(), ll2->begin(), ll2->end());
+    } else if (vector_approx((*ll2)[ll2->size() - 1]->get_vectors()[1], (*ll1)[ll1->size() - 1]->get_vectors()[1]) == true) { //backwards at end
       flip(ll2);
-      ll1->insert(ll1.end(), ll2.begin(), ll2.end());
+      ll1->insert(ll1->end(), ll2->begin(), ll2->end());
     } else {
       return false;
     }
     return true;
   }
+  //void flip(std::vector<std::shared_ptr<linesegment>> *ll);
+  void flip(std::vector<std::shared_ptr<linesegment>> *ll) {
+	   std::reverse(ll->begin(), ll->end());
+     for (auto ls : *ll) {
+       ls->flip();
+     }
+  }
+  bool vector_approx(std::shared_ptr<vector> vec1, std::shared_ptr<vector> vec2) {
+	auto pnt1 = vec1->get_point();
+  auto pnt2 = vec2->get_point();
+  if (std::abs(pnt1[0] - pnt2[0]) < 0.0001 && std::abs(pnt1[1] - pnt2[1]) < 0.0001 && std::abs(pnt1[2] - pnt2[2]) < 0.0001) {
+    return true;
+  }
+	return false;
+  }
   bool is_ordered(std::vector<std::shared_ptr<linesegment>> *loop) {
     size_t len = loop->size();
     for (int i = 0; i < len - 1; i++) {
-      if (!vector_approx(*loop[i + 1].get_vectors()[0], *loop[i].get_vectors()[1])) {
+      if (!vector_approx((*loop)[i + 1]->get_vectors()[0], (*loop)[i]->get_vectors()[1])) {
         return false;
       }
     }
     return true;
   }
   bool are_joined(std::shared_ptr<linesegment> ls1, std::shared_ptr<linesegment> ls2) {
-    /*std::vector<std::shared_ptr<vector>> ls1v = ls1->get_vectors();
+    std::vector<std::shared_ptr<vector>> ls1v = ls1->get_vectors();
     std::vector<std::shared_ptr<vector>> ls2v = ls2->get_vectors();
     if (ls1v[0]->get_point() == ls2v[0]->get_point()) {
-      ls2.flip();
+      ls2->flip();
       return true;
-    } else if (ls1v[1]->get_point() == ls2v[0])*/
+    } else if (ls1v[1]->get_point() == ls2v[0]->get_point())
     return false;
   }
   bool is_closed(std::vector<std::shared_ptr<linesegment>> *loop) {
@@ -136,13 +153,16 @@ namespace samurai {
     return z;
   }
   bool model::rotate_x(float angle) {
-
+    //TODO fill out
+    return false;
   }
   bool model::rotate_y(float angle) {
-
+//TODO fill out
+    return false;
   }
   bool model::rotate_z(float angle) {
-
+//TODO fill out
+    return false;
   }
   bool model::add_triangle(std::shared_ptr<triangle> tri) {
     this->triangles.push_back(tri);
@@ -172,10 +192,12 @@ namespace samurai {
     std::shared_ptr<vector> vec = std::make_shared<vector>(pnt);
     return vec;
   }
-  std::shared_ptr<linesegment> model::get_or_create_linesegment(std::set<std::shared_ptr<vector>> vectors) {
+  std::shared_ptr<linesegment> model::get_or_create_linesegment(std::vector<std::shared_ptr<vector>> vectors) {
     auto lss = this->get_linesegments();
     for (auto ls : lss) {
-      if (vectors == ls->get_vectors()) {
+      auto ls_vectors = ls->get_vectors();
+      //this checks BOTH orientations
+      if ((vectors[0] == ls_vectors[0] && vectors[1] == ls_vectors[1]) || (vectors[0] == ls_vectors[1] && vectors[1] == ls_vectors[0])) {
         return ls; //true for found
       }
     }

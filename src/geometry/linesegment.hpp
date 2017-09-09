@@ -12,14 +12,15 @@ namespace samurai {
   class linesegment : public std::enable_shared_from_this<linesegment>{
   private:
     std::vector<std::shared_ptr<vector>> vectors;
-    std::list<std::shared_ptr<triangle>> triangles;
+    std::set<std::shared_ptr<triangle>> triangles;
     std::shared_ptr<model> mdl;
+    bool flipped;
   public:
-    linesegment();
-    linesegment(std::set<std::shared_ptr<vector>>);
-    bool add_vector(std::shared_ptr<vector>);
+    linesegment(std::vector<std::shared_ptr<vector>>);
     std::vector<std::shared_ptr<vector>> get_vectors();
-    std::list<std::shared_ptr<triangle>> get_triangles();
+    std::set<std::shared_ptr<triangle>> get_triangles();
     bool insert_triangle(std::shared_ptr<triangle>);
+    bool is_flipped();
+    void flip();
   };
 }
