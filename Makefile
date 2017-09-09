@@ -4,15 +4,25 @@ CFLAGS = -std=c99 -pedantic -O1
 #if shared library target
 #CFLAGS += -shared -undefined dynamic_lookup
 
-TARGET_EXEC ?= samurai-c++
-BUILD_DIR ?= ./build
-SRC_DIRS ?= ./src
+TARGET_EXEC = samurai-c++
+TEST_EXEC = unittest
+BUILD_DIR = ./build
+SRC_DIRS = ./src
 #HEAD_DIRS ?= ./include
 
 SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+SRCS_TARGET := $(shell find $(SRC_DIRS) -name *.cpp ! -name unittest.cpp -or -name *.c -or -name *.s)
+SRCS_TEST := $(shell find $(SRC_DIRS) -name *.cpp ! -name samurai-c++.cpp -or -name *.c -or -name *.s)
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
-
+OBJS_TARGET := $(SRCS_TARGET:%=$(BUILD_DIR)/%.o)
+OBJS_TEST := $(SRCS_TEST:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
+
+
+$(info $$SRCS_TARGET is [${SRCS_TARGET}])
+$(info $$SRCS_TEST is [${SRCS_TEST}])
+$(info $$OBJS_TARGET is [${OBJS_TARGET}])
+$(info $$OBJS_TEST is [${OBJS_TEST}])
 
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 #INC_DIRS := $(shell find $(HEAD_DIRS) -type d)
@@ -26,8 +36,11 @@ LDFLAGS = -stdlib=libc++
 #$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 #	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
-$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
-	$(CXX) $(OBJS) -o $@ $(LDFLAGS)
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS_TARGET)
+	$(CXX) $(OBJS_TARGET) -o $@ $(LDFLAGS)
+
+$(BUILD_DIR)/$(TEST_EXEC): $(OBJS_TEST)
+	$(CXX) $(OBJS_TEST) -o $@ $(LDFLAGS)
 
 # assembly
 $(BUILD_DIR)/%.s.o: %.s
