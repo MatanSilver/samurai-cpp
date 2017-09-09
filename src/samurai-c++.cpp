@@ -1,5 +1,7 @@
 #include <cassert>
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "binary_stl.hpp"
 #include "vector.hpp"
 #include "linesegment.hpp"
@@ -21,17 +23,14 @@ int main(int argc, char **argv) {
   }
 
   auto info = bin_stl::parse_stl(stl_file_name); //stl_data
-  /*
-  std::vector<bin_stl::triangle> triangles = info.triangles;
-  std::cout << "STL HEADER = " << info.name << std::endl;
-  std::cout << "# triangles = " << triangles.size() << std::endl;
-  for (auto t : info.triangles) {
-    std::cout << t << std::endl;
-  }*/
 
   auto brep_model = samurai::stl_data_to_model(&info);
   #ifdef DEBUG
   brep_model->print();
   #endif
   auto layers = brep_model->slice(0.01);
+  auto gcode = layers_to_gcode(layers);
+  std::ofstream gcode_file("output.gcode", std::ofstream::out);
+  gcode_file << gcode;
+  gcode_file.close();  
 }
