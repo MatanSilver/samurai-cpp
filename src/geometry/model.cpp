@@ -38,6 +38,9 @@ namespace samurai {
       looplist_list.push_back(closedloops);
     }
     return looplist_list;
+  } 
+  std::string layers_to_gcode(std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>>) {
+	return "test";
   }
   std::vector<std::vector<std::shared_ptr<linesegment>>> linelist_to_openloops(std::vector<std::shared_ptr<linesegment>> linelist) {
     std::vector<std::vector<std::shared_ptr<linesegment>>> openloops;

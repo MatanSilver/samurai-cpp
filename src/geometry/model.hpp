@@ -49,4 +49,5 @@ namespace samurai {
   std::vector<std::vector<std::shared_ptr<linesegment>>> linelist_to_openloops(std::vector<std::shared_ptr<linesegment>>);
   std::vector<std::vector<std::shared_ptr<linesegment>>> closeloops(std::vector<std::vector<std::shared_ptr<linesegment>>>);
   bool splice_in_list(std::vector<std::shared_ptr<linesegment>> &ll1, std::vector<std::shared_ptr<linesegment>> &ll2);
+  std::string layers_to_gcode(std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>>);
 }
