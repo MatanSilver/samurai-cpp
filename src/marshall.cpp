@@ -80,9 +80,7 @@ namespace samurai {
       #ifdef TRUNCATE
       if (i > 500) break; //TODO remove after debugging
       #endif
-      #ifdef DEBUG
-      std::cout << "reading in triangle " << i << std::endl;
-      #endif
+
       #ifdef MULTI_THREAD
       if (qu.size() < 10) {
         qu.push(std::thread(marshall_triangle, mdl, t));
