@@ -2,8 +2,6 @@
 #include "catch.hpp"
 #include <cassert>
 #include <string>
-//#include <sstream>
-//#include <iostream>
 #include <fstream>
 #include "binary_stl.hpp"
 #include "vector.hpp"
