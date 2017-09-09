@@ -19,11 +19,6 @@ OBJS_TEST := $(SRCS_TEST:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
 
-$(info $$SRCS_TARGET is [${SRCS_TARGET}])
-$(info $$SRCS_TEST is [${SRCS_TEST}])
-$(info $$OBJS_TARGET is [${OBJS_TARGET}])
-$(info $$OBJS_TEST is [${OBJS_TEST}])
-
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 #INC_DIRS := $(shell find $(HEAD_DIRS) -type d)
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
@@ -35,6 +30,9 @@ LDFLAGS = -stdlib=libc++
 # main target
 #$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 #	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+
+.PHONY: all
+all: $(BUILD_DIR)/$(TARGET_EXEC) $(BUILD_DIR)/$(TEST_EXEC)
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS_TARGET)
 	$(CXX) $(OBJS_TARGET) -o $@ $(LDFLAGS)
