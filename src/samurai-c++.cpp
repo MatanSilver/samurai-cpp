@@ -28,7 +28,12 @@ int main(int argc, char **argv) {
   #ifdef DEBUG
   brep_model->print();
   #endif
-  auto layers = brep_model->slice(0.01);
+  std::vector<std::vector<std::vector<std::shared_ptr<samurai::linesegment>>>> layers;
+  try {
+    layers = brep_model->slice(0.01);
+  } catch (std::exception& ex) {
+    std::cout << ex.what();
+  }
   auto gcode = layers_to_gcode(layers);
   std::ofstream gcode_file("output.gcode", std::ofstream::out);
   gcode_file << gcode;

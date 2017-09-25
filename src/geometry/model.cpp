@@ -52,6 +52,7 @@ namespace samurai {
   bool splice_in_list(std::vector<std::shared_ptr<linesegment>> *ll1, std::vector<std::shared_ptr<linesegment>> *ll2) {
 
     if (!is_ordered(ll1) || !is_ordered(ll2)) {
+      std::cout << "illegal splice of unordered list" << std::endl;
       throw std::runtime_error("illegal splice of unordered list");
       return false;
     } //TODO check all conditionals
@@ -112,12 +113,14 @@ namespace samurai {
   std::vector<std::vector<std::shared_ptr<linesegment>>> closeloops(std::vector<std::vector<std::shared_ptr<linesegment>>> openloops) {
     std::vector<std::vector<std::shared_ptr<linesegment>>> closedloops;
     int tries = 0;
-    while (openloops.size()) {
+    while (openloops.size() > 1) {
       size_t iters = openloops.size() - 1;
+      std::cout << openloops.size();
       const size_t iters_c = iters;
       for (int i = 0; i < iters; i++) { //iterate over all but the last
         bool result = splice_in_list(&openloops[i], &openloops[iters_c]);
         if (result == true) {
+	  std::cout << "able to splice" << std::endl;
           tries = 0;
           openloops.pop_back(); //cut off last element
           iters--;
@@ -132,7 +135,9 @@ namespace samurai {
             }
           }
         } else {
-          if (tries > 50) {
+	  tries++;
+          if (tries > 10) {
+	    std::cout << "another try" << std::endl;
             throw std::runtime_error("unable to stitch loops");
           }
         }
