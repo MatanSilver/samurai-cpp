@@ -1,2 +1,3 @@
-breakpoint set --file triangle.cpp --line 103
-breakpoint set --file triangle.cpp --line 40
+# breakpoint set --file triangle.cpp --line 103
+# breakpoint set --file triangle.cpp --line 40
+breakpoint set --file model.cpp --line 54
