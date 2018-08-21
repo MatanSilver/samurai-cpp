@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 #ifdef DEBUG
     brep_model->print();
 #endif
-    layer l;
+    samurai::layer l;
     try {
         l = brep_model->slice(0.01);
     } catch (std::exception &ex) {

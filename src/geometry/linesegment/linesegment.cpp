@@ -15,17 +15,17 @@ namespace samurai {
         return this->vectors;
     }
 
-    std::set<std::shared_ptr<triangle>> linesegment::get_triangles() {
+    std::list<std::shared_ptr<triangle>> linesegment::get_triangles() {
         return this->triangles;
     }
 
     bool linesegment::insert_triangle(std::shared_ptr<triangle> tri) {
         for (auto t : this->triangles) { //check if triangle exists
-            if (t == tri) {
+            if (t == tri) { //TODO: does this work
                 return false;
             }
         }
-        this->triangles.insert(tri);
+        this->triangles.push_back(tri);
         return true;
     }
 
@@ -72,5 +72,15 @@ namespace samurai {
         for (auto v : this->vectors) {
             v->translate(vec);
         }
+    }
+
+    bool linesegment::equivalent(std::shared_ptr<linesegment> seg) {
+        if (((this->vectors[0]->get_point() == seg->get_vectors()[0]->get_point()) &&
+             (this->vectors[1]->get_point() == seg->get_vectors()[1]->get_point())) ||
+            ((this->vectors[1]->get_point() == seg->get_vectors()[0]->get_point()) &&
+             (this->vectors[0]->get_point() == seg->get_vectors()[1]->get_point()))) {
+            return true;
+        }
+        return false;
     }
 }

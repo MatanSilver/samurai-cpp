@@ -2,6 +2,7 @@
 #include "vector.hpp"
 #include <set>
 #include <iostream>
+#include <list>
 
 namespace samurai {
     vector::vector() {
@@ -15,22 +16,27 @@ namespace samurai {
         return point;
     }
 
-    std::set<std::shared_ptr<linesegment>> vector::get_linesegments() {
+    std::list<std::shared_ptr<linesegment>> vector::get_linesegments() {
         return linesegments;
     }
 
-    std::set<std::shared_ptr<triangle>> vector::get_triangles() {
+    std::list<std::shared_ptr<triangle>> vector::get_triangles() {
         return triangles;
     }
 
     bool vector::insert_linesegment(std::shared_ptr<linesegment> ls) {
-        linesegments.insert(ls);
+        bool contained = std::any_of(linesegments.begin(), linesegments.end(), [ls](std::shared_ptr<linesegment> ls2){
+            return ls2->equivalent(ls); });
+        if (contained == true) {
+            return false;
+        }
+        linesegments.push_back(ls);
         return true;
     }
 
     bool vector::insert_triangle(std::shared_ptr<triangle> tri) {
-        triangles.insert(tri);
-        return true;
+        //triangles.insert(tri);
+        return false;
     }
 
     void vector::print() {

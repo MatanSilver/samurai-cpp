@@ -4,6 +4,7 @@
 #include <iostream>
 #include <set>
 #include <array>
+#include <list>
 #include <tuple>
 #include "artifact.hpp"
 
@@ -18,7 +19,7 @@ namespace samurai {
     class linesegment : public std::enable_shared_from_this<linesegment>, public artifact {
     private:
         std::array<std::shared_ptr<vector>, 2> vectors;
-        std::set<std::shared_ptr<triangle>> triangles;
+        std::list<std::shared_ptr<triangle>> triangles;
         std::shared_ptr<model> mdl;
         bool flipped;
     public:
@@ -26,7 +27,7 @@ namespace samurai {
 
         std::array<std::shared_ptr<vector>, 2> get_vectors();
 
-        std::set<std::shared_ptr<triangle>> get_triangles();
+        std::list<std::shared_ptr<triangle>> get_triangles();
 
         bool insert_triangle(std::shared_ptr<triangle>);
 
@@ -40,5 +41,7 @@ namespace samurai {
         bool rotate(std::array<float, 3>, std::array<float, 3>);
 
         bool translate(std::array<float, 3>);
+
+        bool equivalent(std::shared_ptr<linesegment> seg);
     };
 }

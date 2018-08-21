@@ -3,6 +3,7 @@
 #include <array>
 #include <vector>
 #include <set>
+#include <list>
 #include "artifact.hpp"
 
 
@@ -16,8 +17,8 @@ namespace samurai {
     class vector : public std::enable_shared_from_this<vector>, public artifact {
     private:
         std::array<float, 3> point;
-        std::set<std::shared_ptr<linesegment>> linesegments;
-        std::set<std::shared_ptr<triangle>> triangles;
+        std::list<std::shared_ptr<linesegment>> linesegments;
+        std::list<std::shared_ptr<triangle>> triangles;
         std::shared_ptr<model> mdl;
     public:
 
@@ -27,9 +28,9 @@ namespace samurai {
 
         std::array<float, 3> get_point();
 
-        std::set<std::shared_ptr<linesegment>> get_linesegments();
+        std::list<std::shared_ptr<linesegment>> get_linesegments();
 
-        std::set<std::shared_ptr<triangle>> get_triangles();
+        std::list<std::shared_ptr<triangle>> get_triangles();
 
         bool insert_linesegment(std::shared_ptr<linesegment>);
 

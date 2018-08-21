@@ -3,3 +3,10 @@
 //
 
 #include "catch.hpp"
+#include "vector.hpp"
+
+TEST_CASE("Testing vector functionality", "[vector]") {
+    SECTION("") {
+
+    }
+}
