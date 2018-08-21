@@ -4,6 +4,8 @@
 
 #include "catch.hpp"
 #include "vector.hpp"
+#include "linesegment.hpp"
+#include "triangle.hpp"
 
 TEST_CASE("Testing vector functionality", "[vector]") {
     SECTION("Vector Translation") {

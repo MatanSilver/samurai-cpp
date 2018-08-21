@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <array>
 
 class NotImplementedException
         : public std::exception {

@@ -38,7 +38,7 @@ namespace samurai {
 
         void flip();
 
-        bool rotate(std::array<float, 3>, std::array<float, 3>);
+        bool rotate(float, float, float, float);
 
         bool translate(std::array<float, 3>);
 

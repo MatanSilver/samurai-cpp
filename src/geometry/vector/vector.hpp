@@ -36,13 +36,7 @@ namespace samurai {
 
         bool insert_triangle(std::shared_ptr<triangle>);
 
-        bool rotate_x(float);
-
-        bool rotate_y(float);
-
-        bool rotate_z(float);
-
-        bool rotate(std::array<float, 3>, std::array<float, 3>);
+        bool rotate(float, std::array<float, 3>);
 
         bool translate(std::array<float, 3>);
 

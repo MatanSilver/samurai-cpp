@@ -21,8 +21,8 @@ namespace samurai {
     class model : artifact {
     private:
         std::list<std::shared_ptr<triangle>> triangles;
-        std::set<std::shared_ptr<vector>> vectors;
-        std::set<std::shared_ptr<linesegment>> linesegments;
+        std::list<std::shared_ptr<vector>> vectors;
+        std::list<std::shared_ptr<linesegment>> linesegments;
 
     public:
         model();
@@ -39,13 +39,7 @@ namespace samurai {
 
         float lowest_z();
 
-        bool rotate(std::array<float, 3>, std::array<float, 3>);
-
-        bool rotate_x(float);
-
-        bool rotate_y(float);
-
-        bool rotate_z(float);
+        bool rotate(float, std::array<float, 3>);
 
         bool translate(std::array<float, 3>);
 
@@ -53,9 +47,9 @@ namespace samurai {
 
         std::list<std::shared_ptr<triangle>> get_triangles();
 
-        std::set<std::shared_ptr<linesegment>> get_linesegments();
+        std::list<std::shared_ptr<linesegment>> get_linesegments();
 
-        std::set<std::shared_ptr<vector>> get_vectors();
+        std::list<std::shared_ptr<vector>> get_vectors();
 
         std::shared_ptr<vector> get_or_create_vector(std::array<float, 3>);
 

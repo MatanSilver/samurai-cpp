@@ -62,14 +62,14 @@ namespace samurai {
         return std::make_tuple(adjacent, after, flip);
     }
 
-    bool linesegment::rotate(std::array<float, 3> rot, std::array<float, 3> origin) {
-        for (auto v : this->vectors) {
-            v->rotate(rot, origin);
+    bool linesegment::rotate(float angle, float u, float v, float w) {
+        for (auto vec : vectors) {
+            vec->rotate(angle, u, v, w);
         }
     }
 
     bool linesegment::translate(std::array<float, 3> vec) {
-        for (auto v : this->vectors) {
+        for (auto v : vectors) {
             v->translate(vec);
         }
     }

@@ -3,6 +3,8 @@
 #include <set>
 #include <iostream>
 #include <list>
+#include <cmath>
+#include "utils.hpp"
 
 namespace samurai {
     vector::vector() {
@@ -43,24 +45,47 @@ namespace samurai {
         std::cout << "{" << point[0] << "," << point[1] << "," << point[2] << "}" << std::endl;
     }
 
-    bool vector::rotate_x(float) {
-        return false;
-    }
+    bool vector::rotate(float angle, std::array<float, 3> axis) {
+        float u = axis[0], v = axis[1], w = axis[2];
+        std::array<std::array<float, 1>, 4> inputMatrix = {point[0], point[1], point[2], 1.0};
+        std::array<std::array<float, 1>, 4> outputMatrix = {0.0, 0.0, 0.0, 0.0};
+        std::array<std::array<float, 4>, 4> rotationMatrix;
+        float L = (u*u + v * v + w * w);
+        angle = angle * M_PI / 180.0; //converting to radian value
+        float u2 = u * u;
+        float v2 = v * v;
+        float w2 = w * w;
 
-    bool vector::rotate_y(float) {
-        return false;
-    }
+        rotationMatrix[0][0] = (u2 + (v2 + w2) * cos(angle)) / L;
+        rotationMatrix[0][1] = (u * v * (1 - cos(angle)) - w * sqrt(L) * sin(angle)) / L;
+        rotationMatrix[0][2] = (u * w * (1 - cos(angle)) + v * sqrt(L) * sin(angle)) / L;
+        rotationMatrix[0][3] = 0.0;
 
-    bool vector::rotate_z(float) {
-        return false;
-    }
+        rotationMatrix[1][0] = (u * v * (1 - cos(angle)) + w * sqrt(L) * sin(angle)) / L;
+        rotationMatrix[1][1] = (v2 + (u2 + w2) * cos(angle)) / L;
+        rotationMatrix[1][2] = (v * w * (1 - cos(angle)) - u * sqrt(L) * sin(angle)) / L;
+        rotationMatrix[1][3] = 0.0;
 
-    bool vector::rotate(std::array<float, 3> rot, std::array<float, 3> origin) {
-        this->translate({-origin[0], -origin[1], -origin[2]});
-        this->rotate_x(rot[0]);
-        this->rotate_y(rot[1]);
-        this->rotate_z(rot[2]);
-        this->translate(origin);
+        rotationMatrix[2][0] = (u * w * (1 - cos(angle)) - v * sqrt(L) * sin(angle)) / L;
+        rotationMatrix[2][1] = (v * w * (1 - cos(angle)) + u * sqrt(L) * sin(angle)) / L;
+        rotationMatrix[2][2] = (w2 + (u2 + v2) * cos(angle)) / L;
+        rotationMatrix[2][3] = 0.0;
+
+        rotationMatrix[3][0] = 0.0;
+        rotationMatrix[3][1] = 0.0;
+        rotationMatrix[3][2] = 0.0;
+        rotationMatrix[3][3] = 1.0;
+
+        std::array<std::array<float, 1>, 4> output;
+        for(int i = 0; i < 4; i++ ){
+            for(int j = 0; j < 1; j++){
+                outputMatrix[i][j] = 0;
+                for(int k = 0; k < 4; k++){
+                    outputMatrix[i][j] += rotationMatrix[i][k] * inputMatrix[k][j];
+                }
+            }
+        }
+        point = {outputMatrix[0][0], outputMatrix[1][0], outputMatrix[2][0]};
         return true;
     }
 

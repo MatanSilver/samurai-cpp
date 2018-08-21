@@ -1,6 +1,7 @@
 #include <vector>
 #include <set>
 #include <array>
+#include <cmath>
 #include "triangle.hpp"
 #include "vector.hpp"
 #include "linesegment.hpp"
