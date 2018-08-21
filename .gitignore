@@ -6,3 +6,4 @@ Karambit.stl
 config.json
 *.swp
 output.gcode
+.idea/
