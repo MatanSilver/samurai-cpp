@@ -7,6 +7,7 @@
 #include <utility>
 #include <shared_mutex>
 #include <mutex>
+#include "layer.hpp"
 
 namespace samurai {
   class triangle; //forward declarations
@@ -23,8 +24,8 @@ namespace samurai {
     #ifdef MULTI_THREAD
     std::shared_timed_mutex mtx;
     #endif
-    std::vector<std::shared_ptr<linesegment>> slice_at_z(float z);
-    std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>> slice(float layer_height);
+    layer slice_at_z(float z);
+    std::vector<layer> slice(float layer_height);
     float highest_z();
     float lowest_z();
     bool rotate(std::array<float, 3>, std::array<float, 3>);
@@ -46,7 +47,9 @@ namespace samurai {
   bool is_closed(std::vector<std::shared_ptr<linesegment>> *ll);
   bool vector_approx(std::shared_ptr<vector> vec1, std::shared_ptr<vector>);
   void flip(std::vector<std::shared_ptr<linesegment>> *ll);
+  //deprecate
   std::vector<std::vector<std::shared_ptr<linesegment>>> linelist_to_openloops(std::vector<std::shared_ptr<linesegment>>);
+  //deprecate
   std::vector<std::vector<std::shared_ptr<linesegment>>> closeloops(std::vector<std::vector<std::shared_ptr<linesegment>>>);
   bool splice_in_list(std::vector<std::shared_ptr<linesegment>> &ll1, std::vector<std::shared_ptr<linesegment>> &ll2);
   std::string layers_to_gcode(std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>>);

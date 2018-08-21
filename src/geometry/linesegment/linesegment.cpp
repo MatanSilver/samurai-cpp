@@ -29,6 +29,29 @@ namespace samurai {
   }
   void linesegment::flip() {
     std::reverse(this->vectors.begin(), this->vectors.end());
+    this->flipped = true;
     return;
+  }
+  //adjacent, after, flip segment
+  std::tuple<bool, bool, bool> linesegment::adjacent(std::shared_ptr<linesegment> seg) {
+    bool adjacent = false;
+    bool after = false;
+    bool flip = false;
+    if (this->vectors[1]->get_point() == seg->vectors[0]->get_point()) {
+      after = true;
+      adjacent = true;
+    } else if (this->vectors[1]->get_point() == seg->vectors[1]->get_point()) {
+      after = true;
+      flip = true;
+      adjacent = true;
+    } else if (this->vectors[0]->get_point() == seg->vectors[0]->get_point()) {
+      flip = true;
+      adjacent = true;
+    } else if (this->vectors[0]->get_point() == seg->vectors[1]->get_point()) {
+      adjacent = true;
+    } else {
+      //adjacent already == false
+    }
+    return std::make_tuple(adjacent, after, flip);
   }
 }

@@ -8,12 +8,13 @@
 #include "linesegment.hpp"
 #include "triangle.hpp"
 #include "vector.hpp"
+#include "layer"
 namespace samurai {
   model::model() {
 
   }
-  std::vector<std::shared_ptr<linesegment>> model::slice_at_z(float z) {
-    std::vector<std::shared_ptr<linesegment>> linelist;
+  layer model::slice_at_z(float z) {
+    std::list<std::shared_ptr<linesegment>> linelist;
     for (auto t : this->triangles) { //TODO change this to only check neighbors?
       if (t->intersects_z(z)) {
         //std::cout << "triangle intersects " << z << std::endl;
@@ -25,20 +26,21 @@ namespace samurai {
         linelist.push_back(ls);
       }
     }
-    return linelist;
+    layer l(linelist);
+    return l;
   }
-  std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>> model::slice(float layer_height) {
-    std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>> looplist_list;
+  std::vector<layer> model::slice(float layer_height) {
+    std::vector<layer> layer_vec;
     for (float z = this->lowest_z(); z < this->highest_z(); z += layer_height) {
       //slice the model at z
-      std::vector<std::shared_ptr<linesegment>> linelist = this->slice_at_z(z);
+      layer linelist(this->slice_at_z(z));
       //stitch intersections into loops
       std::vector<std::vector<std::shared_ptr<linesegment>>> openloops = samurai::linelist_to_openloops(linelist);
       std::vector<std::vector<std::shared_ptr<linesegment>>> closedloops = samurai::closeloops(openloops);
       looplist_list.push_back(closedloops);
     }
     return looplist_list;
-  } 
+  }
   std::string layers_to_gcode(std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>>) {
 	return "test";
   }

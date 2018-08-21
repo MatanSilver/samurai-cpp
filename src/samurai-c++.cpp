@@ -9,6 +9,7 @@
 #include "model.hpp"
 #include "marshall.hpp"
 #include "config.hpp"
+#include "layer.hpp"
 
 int main(int argc, char **argv) {
   std::string stl_file_name = "/Users/Matan/experimental/samurai-c++/40mmcube.stl";
@@ -28,14 +29,14 @@ int main(int argc, char **argv) {
   #ifdef DEBUG
   brep_model->print();
   #endif
-  std::vector<std::vector<std::vector<std::shared_ptr<samurai::linesegment>>>> layers;
+  layer l;
   try {
-    layers = brep_model->slice(0.01);
+    l = brep_model->slice(0.01);
   } catch (std::exception& ex) {
     std::cout << ex.what();
   }
-  auto gcode = layers_to_gcode(layers);
+  auto gcode = layers_to_gcode(l);
   std::ofstream gcode_file("output.gcode", std::ofstream::out);
   gcode_file << gcode;
-  gcode_file.close();  
+  gcode_file.close();
 }

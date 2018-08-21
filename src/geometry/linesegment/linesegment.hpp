@@ -3,6 +3,7 @@
 #include <iostream>
 #include <set>
 #include <array>
+#include <tuple>
 
 namespace samurai {
   class vector; //forward declarations (notice no include)
@@ -21,6 +22,8 @@ namespace samurai {
     std::set<std::shared_ptr<triangle>> get_triangles();
     bool insert_triangle(std::shared_ptr<triangle>);
     bool is_flipped();
+    //adjacent, after, flip segment
+    std::tuple<bool, bool, bool> adjacent(std::shared_ptr<linesegment> seg);
     void flip();
   };
 }
