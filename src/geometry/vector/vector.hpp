@@ -24,7 +24,7 @@ namespace samurai {
 
         vector(std::array<float, 3>);
 
-        std::array<float, 3> get_point(); //TODO can this be const?
+        std::array<float, 3> get_point();
 
         bool rotate(float, std::array<float, 3>);
 
