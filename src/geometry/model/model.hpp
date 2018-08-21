@@ -20,9 +20,9 @@ namespace samurai {
 
     class model : artifact {
     private:
-        std::list<std::shared_ptr<triangle>> triangles;
-        std::list<std::shared_ptr<vector>> vectors;
-        std::list<std::shared_ptr<linesegment>> linesegments;
+        std::vector<std::shared_ptr<triangle>> triangles;
+        std::vector<std::shared_ptr<vector>> vectors;
+        std::vector<std::shared_ptr<linesegment>> linesegments;
 
     public:
         model();
@@ -45,15 +45,15 @@ namespace samurai {
 
         bool add_triangle(std::shared_ptr<triangle>);
 
-        std::list<std::shared_ptr<triangle>> get_triangles();
+        std::vector<std::shared_ptr<triangle>> get_triangles();
 
-        std::list<std::shared_ptr<linesegment>> get_linesegments();
+        std::vector<std::shared_ptr<linesegment>> get_linesegments();
 
-        std::list<std::shared_ptr<vector>> get_vectors();
+        std::vector<std::shared_ptr<vector>> get_vectors();
 
         std::shared_ptr<vector> get_or_create_vector(std::array<float, 3>);
 
-        std::shared_ptr<linesegment> get_or_create_linesegment(std::vector<std::shared_ptr<vector>>);
+        std::shared_ptr<linesegment> get_or_create_linesegment(std::array<std::shared_ptr<vector>, 2>);
 
         bool insert_vector(std::shared_ptr<vector>);
 

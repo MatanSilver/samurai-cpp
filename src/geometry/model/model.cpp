@@ -202,16 +202,16 @@ namespace samurai {
         return true;
     }
 
-    std::list<std::shared_ptr<triangle>> model::get_triangles() {
-        return this->triangles;
+    std::vector<std::shared_ptr<triangle>> model::get_triangles() {
+        return triangles;
     }
 
-    std::list<std::shared_ptr<linesegment>> model::get_linesegments() {
-        return this->linesegments;
+    std::vector<std::shared_ptr<linesegment>> model::get_linesegments() {
+        return linesegments;
     }
 
-    std::list<std::shared_ptr<vector>> model::get_vectors() {
-        return this->vectors;
+    std::vector<std::shared_ptr<vector>> model::get_vectors() {
+        return vectors;
     }
 
     bool model::insert_vector(std::shared_ptr<vector> vec) {
@@ -221,28 +221,23 @@ namespace samurai {
 
     std::shared_ptr<vector> model::get_or_create_vector(std::array<float, 3> pnt) {
         // TODO this is SUPER slow
-        //for (auto vec : this->get_vectors()) {
-        for (auto vec : this->vectors) {
-            if (pnt == vec->get_point()) {
+        auto newvec = std::make_shared<vector>(pnt);
+        for (auto vec : vectors) {
+            if (newvec->approx_equal(vec)) {
                 return vec; //true for found
             }
         }
-        std::shared_ptr<vector> vec = std::make_shared<vector>(pnt);
-        return vec;
+        return newvec;
     }
 
-    std::shared_ptr<linesegment> model::get_or_create_linesegment(std::vector<std::shared_ptr<vector>> vectors) {
-        /*auto lss = this->get_linesegments();
-        for (auto ls : lss) {
-            auto ls_vectors = ls->get_vectors();
-            //this checks BOTH orientations
-            if ((vectors[0] == ls_vectors[0] && vectors[1] == ls_vectors[1]) ||
-                (vectors[0] == ls_vectors[1] && vectors[1] == ls_vectors[0])) {
+    std::shared_ptr<linesegment> model::get_or_create_linesegment(std::array<std::shared_ptr<vector>, 2> vectors) {
+        auto newls = std::make_shared<linesegment>(vectors);
+        for (auto ls : linesegments) {
+            if (newls->approx_equivalent(ls)) {
                 return ls; //true for found
             }
         }
-        auto ls = std::make_shared<linesegment>(vectors);
-        return ls; //false for not found*/
+        return newls; //false for not found*/
     }
 
     void model::print() {
