@@ -46,6 +46,8 @@ namespace samurai {
 
         bool translate(std::array<float, 3>);
 
+        bool equivalent(std::shared_ptr<vector>);
+
         void print();
     };
 }

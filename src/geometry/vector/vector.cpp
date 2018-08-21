@@ -70,4 +70,8 @@ namespace samurai {
         point[2] += offset[2];
         return true;
     }
+
+    bool vector::equivalent(std::shared_ptr<vector> vec) {
+        return this->get_point() == vec->get_point();
+    }
 }
