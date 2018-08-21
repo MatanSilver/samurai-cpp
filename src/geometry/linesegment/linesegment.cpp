@@ -6,23 +6,21 @@
 #include <algorithm>
 
 namespace samurai {
-    linesegment::linesegment(std::array<std::shared_ptr<vector>, 2> vectors) {
-        this->vectors = vectors;
-        //this->triangles = triangles;
+    linesegment::linesegment(std::array<std::shared_ptr<vector>, 2> vecs) {
+        this->vectors = vecs;
     }
 
     std::array<std::shared_ptr<vector>, 2> linesegment::get_vectors() {
-        return this->vectors;
+        return vectors;
     }
 
     bool linesegment::is_flipped() {
-        return this->flipped;
+        return flipped;
     }
 
     void linesegment::flip() {
         std::reverse(this->vectors.begin(), this->vectors.end());
-        this->flipped = true;
-        return;
+        flipped = true;
     }
 
     //adjacent, after, flip segment
@@ -61,13 +59,13 @@ namespace samurai {
     }
 
     bool linesegment::equal(std::shared_ptr<linesegment> seg) {
-        return (this->vectors[0]->equal(seg->get_vectors()[0]) &&
+        return (vectors[0]->equal(seg->get_vectors()[0]) &&
          this->vectors[1]->equal(seg->get_vectors()[1]));
     }
 
     bool linesegment::approx_equal(std::shared_ptr<linesegment> seg) {
-        return (this->vectors[0]->approx_equal(seg->get_vectors()[0]) &&
-                this->vectors[1]->approx_equal(seg->get_vectors()[1]));
+        return (vectors[0]->approx_equal(seg->get_vectors()[0]) &&
+                vectors[1]->approx_equal(seg->get_vectors()[1]));
     }
 
     bool linesegment::equivalent(std::shared_ptr<linesegment> seg) {
