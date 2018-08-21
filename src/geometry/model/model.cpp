@@ -8,7 +8,7 @@
 #include "linesegment.hpp"
 #include "triangle.hpp"
 #include "vector.hpp"
-#include "layer"
+#include "layer.hpp"
 
 namespace samurai {
     model::model() {
@@ -16,7 +16,7 @@ namespace samurai {
     }
 
     layer model::slice_at_z(float z) {
-        std::list<std::shared_ptr<linesegment>> linelist;
+        /*std::list<std::shared_ptr<linesegment>> linelist;
         for (auto t : this->triangles) { //TODO change this to only check neighbors?
             if (t->intersects_z(z)) {
                 //std::cout << "triangle intersects " << z << std::endl;
@@ -29,11 +29,11 @@ namespace samurai {
             }
         }
         layer l(linelist);
-        return l;
+        return l;*/
     }
 
     std::vector<layer> model::slice(float layer_height) {
-        std::vector<layer> layer_vec;
+        /*std::vector<layer> layer_vec;
         for (float z = this->lowest_z(); z < this->highest_z(); z += layer_height) {
             //slice the model at z
             layer linelist(this->slice_at_z(z));
@@ -42,10 +42,10 @@ namespace samurai {
             std::vector<std::vector<std::shared_ptr<linesegment>>> closedloops = samurai::closeloops(openloops);
             looplist_list.push_back(closedloops);
         }
-        return looplist_list;
+        return looplist_list;*/
     }
 
-    std::string layers_to_gcode(std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>>) {
+    std::string layers_to_gcode(std::vector<layer> layers) {
         return "test";
     }
 
@@ -116,13 +116,13 @@ namespace samurai {
     }
 
     bool are_joined(std::shared_ptr<linesegment> ls1, std::shared_ptr<linesegment> ls2) {
-        std::vector<std::shared_ptr<vector>> ls1v = ls1->get_vectors();
+        /*std::vector<std::shared_ptr<vector>> ls1v = ls1->get_vectors();
         std::vector<std::shared_ptr<vector>> ls2v = ls2->get_vectors();
         if (ls1v[0]->get_point() == ls2v[0]->get_point()) {
             ls2->flip();
             return true;
         } else if (ls1v[1]->get_point() == ls2v[0]->get_point())
-            return false;
+            return false;*/
     }
 
     bool is_closed(std::vector<std::shared_ptr<linesegment>> *loop) {
@@ -201,6 +201,14 @@ namespace samurai {
         return false;
     }
 
+    bool model::rotate(std::array<float, 3> rot, std::array<float, 3> origin) {
+
+    }
+
+    bool model::translate(std::array<float, 3> vec) {
+
+    }
+
     bool model::add_triangle(std::shared_ptr<triangle> tri) {
         this->triangles.push_back(tri);
         return true;
@@ -236,7 +244,7 @@ namespace samurai {
     }
 
     std::shared_ptr<linesegment> model::get_or_create_linesegment(std::vector<std::shared_ptr<vector>> vectors) {
-        auto lss = this->get_linesegments();
+        /*auto lss = this->get_linesegments();
         for (auto ls : lss) {
             auto ls_vectors = ls->get_vectors();
             //this checks BOTH orientations
@@ -246,7 +254,7 @@ namespace samurai {
             }
         }
         auto ls = std::make_shared<linesegment>(vectors);
-        return ls; //false for not found
+        return ls; //false for not found*/
     }
 
     void model::print() {

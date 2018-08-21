@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include <list>
 #include <array>
 #include <unordered_set>
@@ -85,5 +86,5 @@ namespace samurai {
 
     bool splice_in_list(std::vector<std::shared_ptr<linesegment>> &ll1, std::vector<std::shared_ptr<linesegment>> &ll2);
 
-    std::string layers_to_gcode(std::vector<std::vector<std::vector<std::shared_ptr<linesegment>>>>);
+    std::string layers_to_gcode(std::vector<layer>);
 }

@@ -64,13 +64,13 @@ namespace samurai {
 
     bool linesegment::rotate(std::array<float, 3> rot, std::array<float, 3> origin) {
         for (auto v : this->vectors) {
-            v.rotate(rot, origin);
+            v->rotate(rot, origin);
         }
     }
 
     bool linesegment::translate(std::array<float, 3> vec) {
         for (auto v : this->vectors) {
-            v.translate(vec);
+            v->translate(vec);
         }
     }
 }
