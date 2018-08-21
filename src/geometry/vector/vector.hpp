@@ -26,13 +26,13 @@ namespace samurai {
 
         std::array<float, 3> get_point();
 
-        bool rotate(float, std::array<float, 3>);
+        void rotate(float, std::array<float, 3>);
 
-        bool translate(std::array<float, 3>);
+        void translate(std::array<float, 3>);
 
-        bool equivalent(std::shared_ptr<vector>);
+        bool equal(std::shared_ptr<vector>);
 
-        bool approx_equivalent(std::shared_ptr<vector>);
+        bool approx_equal(std::shared_ptr<vector>);
     };
 
     std::ostream &operator<<(std::ostream &out, const vector &v);

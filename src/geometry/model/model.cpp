@@ -187,13 +187,13 @@ namespace samurai {
     }
 
 
-    bool model::rotate(float angle, std::array<float, 3> axis) {
+    void model::rotate(float angle, std::array<float, 3> axis) {
         for (auto vec : this->get_vectors()) {
             vec->rotate(angle, axis);
         }
     }
 
-    bool model::translate(std::array<float, 3> vec) {
+    void model::translate(std::array<float, 3> vec) {
 
     }
 

@@ -15,17 +15,17 @@
 
 namespace samurai {
     void marshall_triangle(std::shared_ptr<model> mdl, bin_stl::triangle t) {
-        std::set<std::shared_ptr<vector>> vec_set;
-        std::set<std::shared_ptr<linesegment>> ls_set;
+        std::vector<std::shared_ptr<vector>> vec_vec;
+        std::vector<std::shared_ptr<linesegment>> ls_vec;
 #ifdef MULTI_THREAD
         mdl->mtx.lock_shared();
 #endif
         auto p1 = mdl->get_or_create_vector({t.v1.x, t.v1.y, t.v1.z});
-        vec_set.insert(p1);
+        vec_vec.push_back(p1);
         auto p2 = mdl->get_or_create_vector({t.v2.x, t.v2.y, t.v2.z});
-        vec_set.insert(p2);
+        vec_vec.push_back(p2);
         auto p3 = mdl->get_or_create_vector({t.v3.x, t.v3.y, t.v3.z});
-        vec_set.insert(p3);
+        vec_vec.push_back(p3);
         auto ls1 = mdl->get_or_create_linesegment({p1, p2});
         auto ls2 = mdl->get_or_create_linesegment({p2, p3});
         auto ls3 = mdl->get_or_create_linesegment({p1, p3});
@@ -42,7 +42,7 @@ namespace samurai {
 #endif
         std::array<float, 3> normal = {t.normal.x, t.normal.y, t.normal.z};
         //create triangle (guaranteed all triangles are unique unless something is seriously wrong with stl file)
-        auto tri = std::make_shared<triangle>(vec_set, ls_set, normal);
+        auto tri = std::make_shared<triangle>(vec_vec, ls_vec, normal);
         //add vectors to triangle
         tri->insert_vector(p1);
         tri->insert_vector(p2);

@@ -19,7 +19,7 @@ namespace samurai {
         return point;
     }
 
-    bool vector::rotate(float angle, std::array<float, 3> axis) {
+    void vector::rotate(float angle, std::array<float, 3> axis) {
         float u = axis[0], v = axis[1], w = axis[2];
         std::array<std::array<float, 1>, 4> inputMatrix = {point[0], point[1], point[2], 1.0};
         std::array<std::array<float, 1>, 4> outputMatrix = {0.0, 0.0, 0.0, 0.0};
@@ -60,21 +60,19 @@ namespace samurai {
             }
         }
         point = {outputMatrix[0][0], outputMatrix[1][0], outputMatrix[2][0]};
-        return true;
     }
 
-    bool vector::translate(std::array<float, 3> offset) {
+    void vector::translate(std::array<float, 3> offset) {
         point[0] += offset[0];
         point[1] += offset[1];
         point[2] += offset[2];
-        return true;
     }
 
-    bool vector::equivalent(std::shared_ptr<vector> vec) {
+    bool vector::equal(std::shared_ptr<vector> vec) {
         return this->get_point() == vec->get_point();
     }
 
-    bool vector::approx_equivalent(std::shared_ptr<vector> vec) {
+    bool vector::approx_equal(std::shared_ptr<vector> vec) {
         auto p1 = this->get_point();
         auto p2 = vec->get_point();
         return ((p1[0] - p2[0] <= EPSILON) &&

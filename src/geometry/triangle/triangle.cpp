@@ -11,34 +11,57 @@ namespace samurai {
 
     }
 
-    triangle::triangle(std::set<std::shared_ptr<vector>> vectors, std::set<std::shared_ptr<linesegment>> linesegments,
+    triangle::triangle(std::vector<std::shared_ptr<vector>> vectors, std::vector<std::shared_ptr<linesegment>> linesegments,
                        std::array<float, 3> normal) {
         this->vectors = vectors;
         this->linesegments = linesegments;
         this->normal = normal;
     }
 
-    std::set<std::shared_ptr<vector>> triangle::get_vectors() {
-        return this->vectors;
+    std::vector<std::shared_ptr<vector>> triangle::get_vectors() {
+        return vectors;
     }
 
-    std::set<std::shared_ptr<linesegment>> triangle::get_linesegments() {
-        return this->linesegments;
+    std::vector<std::shared_ptr<linesegment>> triangle::get_linesegments() {
+        return linesegments;
     }
 
     std::array<float, 3> triangle::get_normal() {
-        return this->normal;
+        return normal;
     }
 
     bool triangle::insert_linesegment(std::shared_ptr<linesegment> ls) {
-        //ls->insert_triangle(shared_from_this());
-        this->linesegments.insert(ls);
-        return true;
+        if (!this->contains_linesegment(ls)) {
+            linesegments.push_back(ls);
+            return true;
+        }
+        return false;
     }
 
     bool triangle::insert_vector(std::shared_ptr<vector> vec) {
-        this->vectors.insert(vec);
-        return true;
+        if (!this->contains_vector(vec)) {
+            this->vectors.push_back(vec);
+            return true;
+        }
+        return false;
+    }
+
+    bool triangle::contains_linesegment(std::shared_ptr<linesegment> ls) {
+        for (auto l : linesegments) {
+            if (ls->approx_equivalent(l)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool triangle::contains_vector(std::shared_ptr<vector> vec) {
+        for (auto v : vectors) {
+            if (vec->approx_equal(v)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     bool triangle::intersects_z(float z) {
@@ -118,9 +141,9 @@ namespace samurai {
                 origin = vector_array[1];
             } else {
                 //std::cout << "didn't satisfy\n";
-                vector_array[0]->print();
-                vector_array[1]->print();
-                vector_array[2]->print();
+                std::cout << vector_array[0] << std::endl
+                          << vector_array[1] << std::endl
+                          << vector_array[2] << std::endl;
 
             } // TODO add case where one is on the plane and the other two are alternating
             //TODO fails here

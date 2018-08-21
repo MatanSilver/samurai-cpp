@@ -14,19 +14,19 @@ namespace samurai {
 
     class triangle : public std::enable_shared_from_this<triangle>, public artifact {
     private:
-        std::set<std::shared_ptr<vector>> vectors;
-        std::set<std::shared_ptr<linesegment>> linesegments;
+        std::vector<std::shared_ptr<vector>> vectors;
+        std::vector<std::shared_ptr<linesegment>> linesegments;
         std::array<float, 3> normal;
     public:
 
         triangle();
 
-        triangle(std::set<std::shared_ptr<vector>>, std::set<std::shared_ptr<linesegment>>, std::array<float, 3>
+        triangle(std::vector<std::shared_ptr<vector>>, std::vector<std::shared_ptr<linesegment>>, std::array<float, 3>
         );
 
-        std::set<std::shared_ptr<vector>> get_vectors();
+        std::vector<std::shared_ptr<vector>> get_vectors();
 
-        std::set<std::shared_ptr<linesegment>> get_linesegments();
+        std::vector<std::shared_ptr<linesegment>> get_linesegments();
 
         std::array<float, 3> get_normal();
 
@@ -37,5 +37,15 @@ namespace samurai {
         std::vector<std::shared_ptr<vector>> intersect_plane(float);
 
         bool intersects_z(float);
+
+        bool contains_linesegment(std::shared_ptr<linesegment>);
+
+        bool contains_vector(std::shared_ptr<vector>);
+
+        /*
+         * Triangles should never appear twice in an STL file, so there should be no need to check for
+         * equivalence between triangles. Perhaps in the future those functions could be added for further robustness
+         * and if any model editing abilities are added.
+         */
     };
 }

@@ -32,12 +32,16 @@ namespace samurai {
 
         void flip();
 
-        bool rotate(float, std::array<float, 3>);
+        void rotate(float, std::array<float, 3>);
 
-        bool translate(std::array<float, 3>);
+        void translate(std::array<float, 3>);
 
-        bool equal(linesegment*);
+        bool equal(std::shared_ptr<linesegment>);
 
-        bool equivalent(linesegment*);
+        bool approx_equal(std::shared_ptr<linesegment>);
+
+        bool equivalent(std::shared_ptr<linesegment>);
+
+        bool approx_equivalent(std::shared_ptr<linesegment>);
     };
 }

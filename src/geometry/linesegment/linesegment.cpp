@@ -48,30 +48,48 @@ namespace samurai {
         return std::make_tuple(adjacent, after, flip);
     }
 
-    bool linesegment::rotate(float angle, std::array<float, 3> axis) {
+    void linesegment::rotate(float angle, std::array<float, 3> axis) {
         for (auto vec : vectors) {
             vec->rotate(angle, axis);
         }
     }
 
-    bool linesegment::translate(std::array<float, 3> vec) {
+    void linesegment::translate(std::array<float, 3> vec) {
         for (auto v : vectors) {
             v->translate(vec);
         }
     }
 
-    bool linesegment::equal(linesegment *seg) {
-        return ((this->vectors[0]->get_point() == seg->get_vectors()[0]->get_point()) &&
-         (this->vectors[1]->get_point() == seg->get_vectors()[1]->get_point()));
+    bool linesegment::equal(std::shared_ptr<linesegment> seg) {
+        return (this->vectors[0]->equal(seg->get_vectors()[0]) &&
+         this->vectors[1]->equal(seg->get_vectors()[1]));
     }
 
-    bool linesegment::equivalent(linesegment *seg) {
+    bool linesegment::approx_equal(std::shared_ptr<linesegment> seg) {
+        return (this->vectors[0]->approx_equal(seg->get_vectors()[0]) &&
+                this->vectors[1]->approx_equal(seg->get_vectors()[1]));
+    }
+
+    bool linesegment::equivalent(std::shared_ptr<linesegment> seg) {
         if (this->equal(seg)) {
             return true;
         }
-        linesegment *ls = new linesegment(seg->get_vectors());
+        auto ls = std::make_shared<linesegment>(seg->get_vectors());
         ls->flip();
         if (this->equal(ls)) {
+
+        }
+
+        return false;
+    }
+
+    bool linesegment::approx_equivalent(std::shared_ptr<linesegment> seg) {
+        if (this->approx_equal(seg)) {
+            return true;
+        }
+        auto ls = std::make_shared<linesegment>(seg->get_vectors());
+        ls->flip();
+        if (this->approx_equal(ls)) {
 
         }
 

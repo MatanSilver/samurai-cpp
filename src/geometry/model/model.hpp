@@ -39,9 +39,9 @@ namespace samurai {
 
         float lowest_z();
 
-        bool rotate(float, std::array<float, 3>);
+        void rotate(float, std::array<float, 3>);
 
-        bool translate(std::array<float, 3>);
+        void translate(std::array<float, 3>);
 
         bool add_triangle(std::shared_ptr<triangle>);
 
