@@ -19,7 +19,6 @@ set(SOURCE_FILES
         src/geometry/vector/vector.cpp
         src/geometry/vector/vector.hpp
         src/geometry/artifact.hpp
-        src/geometry/container.hpp
         src/parser/binary_stl.cpp
         src/parser/binary_stl.hpp
         src/ring/ring.hpp
@@ -44,14 +43,13 @@ set(UNIT_SOURCE_FILES
         src/geometry/vector/vector.cpp
         src/geometry/vector/vector.hpp
         src/geometry/artifact.hpp
-        src/geometry/container.hpp
         src/parser/binary_stl.cpp
         src/parser/binary_stl.hpp
         src/ring/ring.hpp
         src/catch.hpp
         src/marshall.cpp
         src/marshall.hpp
-        src/samurai-c++.cpp
+        src/unittest.cpp
         src/utils.hpp)
 set(INCLUDE_DIRS
         src

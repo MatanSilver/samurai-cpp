@@ -1,6 +1,5 @@
 #pragma once
 #include <list>
-#include "container.hpp"
 #include "artifact.hpp"
 
 namespace samurai {
