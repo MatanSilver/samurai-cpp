@@ -44,16 +44,15 @@ namespace samurai {
     }
 
     bool vector::rotate_x(float) {
-        std::array<float, 3> rot_mat = {1.0, 1.0, 0.0};
-        return true;
+        return false;
     }
 
     bool vector::rotate_y(float) {
-        return true;
+        return false;
     }
 
     bool vector::rotate_z(float) {
-        return true;
+        return false;
     }
 
     bool vector::rotate(std::array<float, 3> rot, std::array<float, 3> origin) {
