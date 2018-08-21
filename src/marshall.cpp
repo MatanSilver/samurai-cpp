@@ -37,12 +37,6 @@ namespace samurai {
         mdl->insert_vector(p2);
         mdl->insert_vector(p3);
 
-        p1->insert_linesegment(ls1); //propagate links
-        p1->insert_linesegment(ls3);
-        p2->insert_linesegment(ls1);
-        p2->insert_linesegment(ls2);
-        p3->insert_linesegment(ls2);
-        p3->insert_linesegment(ls3);
 #ifdef MULTI_THREAD
         mdl->mtx.unlock();
 #endif
@@ -57,9 +51,6 @@ namespace samurai {
         tri->insert_linesegment(ls2);
         tri->insert_linesegment(ls3);
 
-        p1->insert_triangle(tri); //propagate links
-        p2->insert_triangle(tri);
-        p3->insert_triangle(tri);
 #ifdef MULTI_THREAD
         mdl->mtx.lock();
 #endif

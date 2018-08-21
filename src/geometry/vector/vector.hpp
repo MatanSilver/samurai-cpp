@@ -5,6 +5,7 @@
 #include <set>
 #include <list>
 #include "artifact.hpp"
+#include "utils.hpp"
 
 
 namespace samurai {
@@ -17,24 +18,13 @@ namespace samurai {
     class vector : public std::enable_shared_from_this<vector>, public artifact {
     private:
         std::array<float, 3> point;
-        std::list<std::shared_ptr<linesegment>> linesegments;
-        std::list<std::shared_ptr<triangle>> triangles;
-        std::shared_ptr<model> mdl;
     public:
 
         vector();
 
         vector(std::array<float, 3>);
 
-        std::array<float, 3> get_point();
-
-        std::list<std::shared_ptr<linesegment>> get_linesegments();
-
-        std::list<std::shared_ptr<triangle>> get_triangles();
-
-        bool insert_linesegment(std::shared_ptr<linesegment>);
-
-        bool insert_triangle(std::shared_ptr<triangle>);
+        std::array<float, 3> get_point(); //TODO can this be const?
 
         bool rotate(float, std::array<float, 3>);
 
@@ -42,6 +32,8 @@ namespace samurai {
 
         bool equivalent(std::shared_ptr<vector>);
 
-        void print();
+        bool approx_equivalent(std::shared_ptr<vector>);
     };
+
+    std::ostream &operator<<(std::ostream &out, const vector &v);
 }

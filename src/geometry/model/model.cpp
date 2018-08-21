@@ -186,20 +186,6 @@ namespace samurai {
         return z;
     }
 
-    bool model::rotate_x(float angle) {
-        //TODO fill out
-        return false;
-    }
-
-    bool model::rotate_y(float angle) {
-//TODO fill out
-        return false;
-    }
-
-    bool model::rotate_z(float angle) {
-//TODO fill out
-        return false;
-    }
 
     bool model::rotate(float angle, std::array<float, 3> axis) {
         for (auto vec : this->get_vectors()) {
@@ -220,16 +206,16 @@ namespace samurai {
         return this->triangles;
     }
 
-    std::set<std::shared_ptr<linesegment>> model::get_linesegments() {
+    std::list<std::shared_ptr<linesegment>> model::get_linesegments() {
         return this->linesegments;
     }
 
-    std::set<std::shared_ptr<vector>> model::get_vectors() {
+    std::list<std::shared_ptr<vector>> model::get_vectors() {
         return this->vectors;
     }
 
     bool model::insert_vector(std::shared_ptr<vector> vec) {
-        this->vectors.insert(vec);
+        this->vectors.push_back(vec);
         return true;
     }
 

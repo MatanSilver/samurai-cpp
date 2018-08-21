@@ -17,7 +17,6 @@ namespace samurai {
         std::set<std::shared_ptr<vector>> vectors;
         std::set<std::shared_ptr<linesegment>> linesegments;
         std::array<float, 3> normal;
-        std::shared_ptr<model> mdl;
     public:
 
         triangle();

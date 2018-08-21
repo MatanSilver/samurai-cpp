@@ -15,20 +15,6 @@ namespace samurai {
         return this->vectors;
     }
 
-    std::list<std::shared_ptr<triangle>> linesegment::get_triangles() {
-        return this->triangles;
-    }
-
-    bool linesegment::insert_triangle(std::shared_ptr<triangle> tri) {
-        for (auto t : this->triangles) { //check if triangle exists
-            if (t == tri) { //TODO: does this work
-                return false;
-            }
-        }
-        this->triangles.push_back(tri);
-        return true;
-    }
-
     bool linesegment::is_flipped() {
         return this->flipped;
     }
@@ -62,9 +48,9 @@ namespace samurai {
         return std::make_tuple(adjacent, after, flip);
     }
 
-    bool linesegment::rotate(float angle, float u, float v, float w) {
+    bool linesegment::rotate(float angle, std::array<float, 3> axis) {
         for (auto vec : vectors) {
-            vec->rotate(angle, u, v, w);
+            vec->rotate(angle, axis);
         }
     }
 
@@ -74,13 +60,21 @@ namespace samurai {
         }
     }
 
-    bool linesegment::equivalent(std::shared_ptr<linesegment> seg) {
-        if (((this->vectors[0]->get_point() == seg->get_vectors()[0]->get_point()) &&
-             (this->vectors[1]->get_point() == seg->get_vectors()[1]->get_point())) ||
-            ((this->vectors[1]->get_point() == seg->get_vectors()[0]->get_point()) &&
-             (this->vectors[0]->get_point() == seg->get_vectors()[1]->get_point()))) {
+    bool linesegment::equal(linesegment *seg) {
+        return ((this->vectors[0]->get_point() == seg->get_vectors()[0]->get_point()) &&
+         (this->vectors[1]->get_point() == seg->get_vectors()[1]->get_point()));
+    }
+
+    bool linesegment::equivalent(linesegment *seg) {
+        if (this->equal(seg)) {
             return true;
         }
+        linesegment *ls = new linesegment(seg->get_vectors());
+        ls->flip();
+        if (this->equal(ls)) {
+
+        }
+
         return false;
     }
 }

@@ -1,14 +1,15 @@
 #include "linesegment.hpp"
 #include "vector.hpp"
 #include <set>
+#include <fstream>
 #include <iostream>
+#include <sstream>
+#include <streambuf>
 #include <list>
 #include <cmath>
 #include "utils.hpp"
 
 namespace samurai {
-    vector::vector() {
-    }
 
     vector::vector(std::array<float, 3> pnt) {
         point = std::array<float, 3>(pnt);
@@ -16,33 +17,6 @@ namespace samurai {
 
     std::array<float, 3> vector::get_point() {
         return point;
-    }
-
-    std::list<std::shared_ptr<linesegment>> vector::get_linesegments() {
-        return linesegments;
-    }
-
-    std::list<std::shared_ptr<triangle>> vector::get_triangles() {
-        return triangles;
-    }
-
-    bool vector::insert_linesegment(std::shared_ptr<linesegment> ls) {
-        bool contained = std::any_of(linesegments.begin(), linesegments.end(), [ls](std::shared_ptr<linesegment> ls2){
-            return ls2->equivalent(ls); });
-        if (contained == true) {
-            return false;
-        }
-        linesegments.push_back(ls);
-        return true;
-    }
-
-    bool vector::insert_triangle(std::shared_ptr<triangle> tri) {
-        //triangles.insert(tri);
-        return false;
-    }
-
-    void vector::print() {
-        std::cout << "{" << point[0] << "," << point[1] << "," << point[2] << "}" << std::endl;
     }
 
     bool vector::rotate(float angle, std::array<float, 3> axis) {
@@ -98,5 +72,20 @@ namespace samurai {
 
     bool vector::equivalent(std::shared_ptr<vector> vec) {
         return this->get_point() == vec->get_point();
+    }
+
+    bool vector::approx_equivalent(std::shared_ptr<vector> vec) {
+        auto p1 = this->get_point();
+        auto p2 = vec->get_point();
+        return ((p1[0] - p2[0] <= EPSILON) &&
+                (p1[1] - p2[1] <= EPSILON) &&
+                (p1[2] - p2[2] <= EPSILON));
+    }
+
+    std::ostream &operator<<(std::ostream &out, const vector &v) {
+        vector v2 = v; //demote to non-const
+        auto p = v2.get_point();
+        out << "<" << p[0] << ", " << p[1] << ", " << p[2] << ">";
+        return out;
     }
 }
