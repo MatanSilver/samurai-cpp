@@ -26,7 +26,7 @@ set(SOURCE_FILES
         src/marshall.cpp
         src/marshall.hpp
         src/samurai-c++.cpp
-        src/utils.hpp)
+        src/utils.hpp src/args.hpp)
 set(UNIT_SOURCE_FILES
         src/config/config.cpp
         src/config/config.hpp
