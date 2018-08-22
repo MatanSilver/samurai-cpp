@@ -14,6 +14,7 @@ namespace samurai {
 
     class triangle : public std::enable_shared_from_this<triangle>, public artifact {
     private:
+        //TODO change to arrays of fixed size?
         std::vector<std::shared_ptr<vector>> vectors;
         std::vector<std::shared_ptr<linesegment>> linesegments;
         std::array<float, 3> normal;

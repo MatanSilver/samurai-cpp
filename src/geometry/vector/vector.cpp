@@ -7,6 +7,7 @@
 #include <streambuf>
 #include <list>
 #include <cmath>
+#include <stdio.h>
 #include "utils.hpp"
 
 namespace samurai {
@@ -75,9 +76,9 @@ namespace samurai {
     bool vector::approx_equal(std::shared_ptr<vector> vec) {
         auto p1 = this->get_point();
         auto p2 = vec->get_point();
-        return ((p1[0] - p2[0] <= EPSILON) &&
-                (p1[1] - p2[1] <= EPSILON) &&
-                (p1[2] - p2[2] <= EPSILON));
+        return ((abs(p1[0] - p2[0]) <= EPSILON) &&
+                (abs(p1[1] - p2[1]) <= EPSILON) &&
+                (abs(p1[2] - p2[2]) <= EPSILON));
     }
 
     std::ostream &operator<<(std::ostream &out, const vector &v) {

@@ -3,7 +3,7 @@
 #include <string>
 #include <array>
 
-#define EPSILON 0.000000000001
+#define EPSILON 0.000001
 
 class NotImplementedException
         : public std::exception {

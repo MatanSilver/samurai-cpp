@@ -5,6 +5,7 @@
 #include "triangle.hpp"
 #include "vector.hpp"
 #include "linesegment.hpp"
+#include <iostream>
 #include "utils.hpp"
 
 namespace samurai {
@@ -12,7 +13,8 @@ namespace samurai {
 
     }
 
-    triangle::triangle(std::vector<std::shared_ptr<vector>> vectors, std::vector<std::shared_ptr<linesegment>> linesegments,
+    triangle::triangle(std::vector<std::shared_ptr<vector>> vectors,
+                       std::vector<std::shared_ptr<linesegment>> linesegments,
                        std::array<float, 3> normal) {
         this->vectors = vectors;
         this->linesegments = linesegments;
@@ -66,23 +68,30 @@ namespace samurai {
     }
 
     bool triangle::intersects_z(float z) {
-        std::vector<std::shared_ptr<vector>> vector_array(vectors.begin(), vectors.end());
-        //std::copy(vectors.begin(), vectors.end(), std::back_inserter(vector_array));
-        float z1 = vector_array[0]->get_point()[2];
-        float z2 = vector_array[1]->get_point()[2];
-        float z3 = vector_array[2]->get_point()[2];
-        if (z1 > z && z2 > z && z3 > z) { //all above
-            return false;
-        } else if (z1 < z && z2 < z && z3 < z) { //all below
-            return false;
-        } else if (z1 == z && z2 == z && z3 == z) { //all on
-            return false;
-        } else if ((z1 == z && z2 != z && z3 != z) ||
-                   (z2 == z && z1 != z && z3 != z) ||
-                   (z3 == z && z1 != z && z2 != z)) {
-            return false;
+        float z1 = vectors[0]->get_point()[2];
+        float z2 = vectors[1]->get_point()[2];
+        float z3 = vectors[2]->get_point()[2];
+
+        int count_above = 0, count_below = 0, count_on = 0;
+
+        count_on += (abs(z1 - z) <= EPSILON); //fuzzing
+        count_on += (abs(z2 - z) <= EPSILON);
+        count_on += (abs(z3 - z) <= EPSILON);
+
+        count_above += (z1 - z > EPSILON);
+        count_above += (z2 - z > EPSILON);
+        count_above += (z3 - z > EPSILON);
+
+        count_below += (z - z1 > EPSILON);
+        count_below += (z - z2 > EPSILON);
+        count_below += (z - z3 > EPSILON);
+
+        if ((count_on == 2) ||
+            (count_above == 2 && count_below == 1) ||
+            (count_above == 1 && count_below == 2)) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     std::vector<std::shared_ptr<vector>> triangle::intersect_plane(float z) {
