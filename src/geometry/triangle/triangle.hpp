@@ -43,6 +43,10 @@ namespace samurai {
 
         bool contains_vector(std::shared_ptr<vector>);
 
+        void rotate(float, std::array<float, 3>);
+
+        void translate(std::array<float, 3>);
+
         /*
          * Triangles should never appear twice in an STL file, so there should be no need to check for
          * equivalence between triangles. Perhaps in the future those functions could be added for further robustness

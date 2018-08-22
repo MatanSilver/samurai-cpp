@@ -54,7 +54,7 @@ set(UNIT_SOURCE_FILES
         src/geometry/linesegment/test_linesegment.cpp
         src/geometry/model/test_model.cpp
         src/geometry/triangle/test_triangle.cpp
-        src/geometry/vector/test_vector.cpp)
+        src/geometry/vector/test_vector.cpp src/ring/test_ring.cpp)
 set(INCLUDE_DIRS
         src
         src/ring

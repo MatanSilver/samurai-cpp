@@ -67,6 +67,18 @@ namespace samurai {
         return false;
     }
 
+    void triangle::rotate(float angle, std::array<float, 3> axis) {
+        for (auto v : vectors) {
+            v->rotate(angle, axis);
+        }
+    }
+
+    void triangle::translate(std::array<float, 3> offset) {
+        for (auto v : vectors) {
+            v->translate(offset);
+        }
+    }
+
     bool triangle::intersects_z(float z) {
         float z1 = vectors[0]->get_point()[2];
         float z2 = vectors[1]->get_point()[2];

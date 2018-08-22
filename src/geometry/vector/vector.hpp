@@ -9,6 +9,8 @@
 
 
 namespace samurai {
+    typedef std::array<float, 3> point_t;
+
     class linesegment;
 
     class triangle;
@@ -17,7 +19,7 @@ namespace samurai {
 
     class vector : public std::enable_shared_from_this<vector>, public artifact {
     private:
-        std::array<float, 3> point;
+        point_t point;
     public:
 
         vector();
