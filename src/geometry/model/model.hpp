@@ -7,8 +7,6 @@
 #include <unordered_set>
 #include <set>
 #include <utility>
-#include <shared_mutex>
-#include <mutex>
 #include "layer.hpp"
 #include "artifact.hpp"
 
@@ -26,10 +24,6 @@ namespace samurai {
 
     public:
         model();
-
-#ifdef MULTI_THREAD
-        std::shared_timed_mutex mtx;
-#endif
 
         layer slice_at_z(float z);
 

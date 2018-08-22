@@ -6,9 +6,6 @@
 #include "vector.hpp"
 #include "triangle.hpp"
 #include "linesegment.hpp"
-#include <fstream>
-#include <array>
-#include <iostream>
 
 TEST_CASE("Testing linesegment functionality", "[linesegment]") {
     auto vec1 = std::make_shared<samurai::vector>(samurai::vector({0, 0, 0}));

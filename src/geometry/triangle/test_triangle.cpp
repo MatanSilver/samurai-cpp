@@ -6,9 +6,6 @@
 #include "vector.hpp"
 #include "triangle.hpp"
 #include "linesegment.hpp"
-#include <fstream>
-#include <array>
-#include <iostream>
 
 TEST_CASE("Testing triangle functionality", "[triangle]") {
     SECTION("Triangle Translation") {

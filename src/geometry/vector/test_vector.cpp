@@ -6,9 +6,6 @@
 #include "vector.hpp"
 #include "linesegment.hpp"
 #include <fstream>
-#include <iostream>
-#include <sstream>
-#include <streambuf>
 
 TEST_CASE("Testing vector functionality", "[vector]") {
     SECTION("Vector Translation") {
