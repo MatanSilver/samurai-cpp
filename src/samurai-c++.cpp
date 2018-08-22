@@ -10,6 +10,7 @@
 #include "marshall.hpp"
 #include "config.hpp"
 #include "layer.hpp"
+#include "args.hpp"
 
 int main(int argc, char **argv) {
     std::string stl_file_name = "/Users/Matan/experimental/samurai-c++/40mmcube.stl";
@@ -29,13 +30,14 @@ int main(int argc, char **argv) {
 #ifdef DEBUG
     brep_model->print();
 #endif
-    samurai::layer l;
+
+    std::vector<samurai::layer> layers = brep_model->slice(0.03);
     try {
-        l = brep_model->slice(0.01);
+        layers = brep_model->slice(0.01);
     } catch (std::exception &ex) {
         std::cout << ex.what();
     }
-    auto gcode = layers_to_gcode(l);
+    auto gcode = samurai::layers_to_gcode(layers);
     std::ofstream gcode_file("output.gcode", std::ofstream::out);
     gcode_file << gcode;
     gcode_file.close();
