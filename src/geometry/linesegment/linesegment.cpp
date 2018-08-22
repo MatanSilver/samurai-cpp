@@ -23,6 +23,15 @@ namespace samurai {
         flipped = true;
     }
 
+    bool linesegment::contains_vector(std::shared_ptr<vector> vec) {
+        for (auto v : vectors) {
+            if (vec->approx_equal(v)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //adjacent, after, flip segment
     std::tuple<bool, bool, bool> linesegment::adjacent(std::shared_ptr<linesegment> seg) {
         bool adjacent = false;
@@ -75,7 +84,7 @@ namespace samurai {
         auto ls = std::make_shared<linesegment>(seg->get_vectors());
         ls->flip();
         if (this->equal(ls)) {
-
+            return true;
         }
 
         return false;
@@ -88,7 +97,7 @@ namespace samurai {
         auto ls = std::make_shared<linesegment>(seg->get_vectors());
         ls->flip();
         if (this->approx_equal(ls)) {
-
+            return true;
         }
 
         return false;

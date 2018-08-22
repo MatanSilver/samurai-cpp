@@ -40,6 +40,8 @@ namespace samurai {
 
         bool approx_equal(std::shared_ptr<linesegment>);
 
+        bool contains_vector(std::shared_ptr<vector>);
+
         bool equivalent(std::shared_ptr<linesegment>);
 
         bool approx_equivalent(std::shared_ptr<linesegment>);
