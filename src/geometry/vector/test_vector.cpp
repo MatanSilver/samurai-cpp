@@ -23,10 +23,4 @@ TEST_CASE("Testing vector functionality", "[vector]") {
         vec1->rotate(90, {1, 0, 0});
         REQUIRE(vec1->approx_equal(vec2));
     }
-    SECTION("Line Segment Insertion") {
-
-    }
-    SECTION("Triangle Insertion") {
-
-    }
 }
