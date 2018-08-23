@@ -81,9 +81,8 @@ namespace samurai {
                 (abs(p1[2] - p2[2]) <= EPSILON));
     }
 
-    std::ostream &operator<<(std::ostream &out, const vector &v) {
-        vector v2 = v; //demote to non-const
-        auto p = v2.get_point();
+    std::ostream &operator<<(std::ostream &out, vector &v) {
+        auto p = v.get_point();
         out << "<" << p[0] << ", " << p[1] << ", " << p[2] << ">";
         return out;
     }

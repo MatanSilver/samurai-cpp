@@ -18,15 +18,15 @@ namespace samurai {
         std::vector<std::shared_ptr<vector>> vec_vec;
         std::vector<std::shared_ptr<linesegment>> ls_vec;
 
-        auto p1 = mdl->get_or_create_vector({t.v1.x, t.v1.y, t.v1.z});
+        auto p1 = mdl->insert_vector({t.v1.x, t.v1.y, t.v1.z});
         vec_vec.push_back(p1);
-        auto p2 = mdl->get_or_create_vector({t.v2.x, t.v2.y, t.v2.z});
+        auto p2 = mdl->insert_vector({t.v2.x, t.v2.y, t.v2.z});
         vec_vec.push_back(p2);
-        auto p3 = mdl->get_or_create_vector({t.v3.x, t.v3.y, t.v3.z});
+        auto p3 = mdl->insert_vector({t.v3.x, t.v3.y, t.v3.z});
         vec_vec.push_back(p3);
-        auto ls1 = mdl->get_or_create_linesegment({p1, p2});
-        auto ls2 = mdl->get_or_create_linesegment({p2, p3});
-        auto ls3 = mdl->get_or_create_linesegment({p1, p3});
+        auto ls1 = mdl->insert_linesegment({p1, p2});
+        auto ls2 = mdl->insert_linesegment({p2, p3});
+        auto ls3 = mdl->insert_linesegment({p1, p3});
 
         mdl->insert_vector(p1);
         mdl->insert_vector(p2);
@@ -43,7 +43,7 @@ namespace samurai {
         tri->insert_linesegment(ls2);
         tri->insert_linesegment(ls3);
 
-        mdl->add_triangle(tri);
+        mdl->insert_triangle(tri);
 
         return;
     }

@@ -37,7 +37,7 @@ namespace samurai {
 
         void translate(std::array<float, 3>);
 
-        bool add_triangle(std::shared_ptr<triangle>);
+        bool insert_triangle(std::shared_ptr<triangle> tri);
 
         std::vector<std::shared_ptr<triangle>> get_triangles();
 
@@ -45,13 +45,13 @@ namespace samurai {
 
         std::vector<std::shared_ptr<vector>> get_vectors();
 
-        std::shared_ptr<vector> get_or_create_vector(std::array<float, 3>);
+        std::shared_ptr<vector> insert_vector(std::array<float, 3> pnt);
 
-        std::shared_ptr<linesegment> get_or_create_linesegment(std::array<std::shared_ptr<vector>, 2>);
+        std::shared_ptr<vector> insert_vector(std::shared_ptr<samurai::vector> vec);
 
-        bool insert_vector(std::shared_ptr<vector>);
+        std::shared_ptr<linesegment> insert_linesegment(std::array<std::shared_ptr<vector>, 2> vecs);
 
-        void print();
+        std::shared_ptr<linesegment> insert_linesegment(std::shared_ptr<linesegment> newls);
     };
 
     bool is_ordered(std::vector<std::shared_ptr<linesegment>> *loop);
@@ -75,4 +75,7 @@ namespace samurai {
     bool splice_in_list(std::vector<std::shared_ptr<linesegment>> &ll1, std::vector<std::shared_ptr<linesegment>> &ll2);
 
     std::string layers_to_gcode(std::vector<layer>);
+
+    std::ostream &operator<<(std::ostream &out, const model &m);
+
 }

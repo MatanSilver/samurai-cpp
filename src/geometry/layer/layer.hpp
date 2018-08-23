@@ -2,24 +2,24 @@
 
 #include <list>
 #include "artifact.hpp"
-#include "loop.hpp"
+#include "geometry/loops/loop.hpp"
 
 namespace samurai {
     class linesegment;
 
     class layer : public artifact {
     private:
-        std::list<loop> loops;
-
-        std::list<loop> linelist_to_loops(std::list<std::shared_ptr<linesegment>>);
+        std::vector<loop> loops;
 
     public:
         //initialize with a list of lines
-        layer(std::list<std::shared_ptr<linesegment>>);
+        layer(std::vector<std::shared_ptr<linesegment>>);
 
         //initialize with a list of loops
-        layer(std::list<loop>);
+        layer(std::vector<loop>);
 
-        std::list<loop> get_loops();
+        bool closeloops();
+
+        std::vector<loop> get_loops();
     };
 }

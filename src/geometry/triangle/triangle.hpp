@@ -35,7 +35,7 @@ namespace samurai {
 
         bool insert_vector(std::shared_ptr<vector>);
 
-        std::vector<std::shared_ptr<vector>> intersect_plane(float);
+        std::array<std::shared_ptr<vector>, 2> intersect_z(float);
 
         bool intersects_z(float);
 

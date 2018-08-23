@@ -9,10 +9,11 @@ namespace samurai {
         std::list<std::shared_ptr<linesegment>> lines;
         bool flipped;
     public:
-        loop(std::list<std::shared_ptr<linesegment>> lines) {
-            this->lines = lines;
-            this->flipped = false;
-        }
+        loop(std::list<std::shared_ptr<linesegment>> ls) : lines(ls), flipped(false){
+        };
+        loop(std::shared_ptr<linesegment> l) : flipped(false) {
+            lines.push_back(l);
+        };
 
         bool add_line(std::shared_ptr<linesegment> line) {
             if (lines.size() == 0) {
@@ -105,5 +106,25 @@ namespace samurai {
         inline bool closed() {
             return (std::get<0>(lines.front()->adjacent(lines.back())) && lines.size() > 2);
         }
+    };
+
+    class OpenLoopException
+            : public std::exception {
+
+    public:
+
+        // Construct with given error message:
+        OpenLoopException(const char *error = "Unable to close loop!") {
+            errorMessage = error;
+        }
+
+        // Provided for compatibility with std::exception.
+        const char *what() const noexcept {
+            return errorMessage.c_str();
+        }
+
+    private:
+
+        std::string errorMessage;
     };
 }

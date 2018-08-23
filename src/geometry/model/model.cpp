@@ -15,34 +15,28 @@ namespace samurai {
 
     }
 
+    //returns a layer containing a vector of closed loops
     layer model::slice_at_z(float z) {
-        /*std::list<std::shared_ptr<linesegment>> linelist;
+        std::vector<std::shared_ptr<linesegment>> linelist;
         for (auto t : this->triangles) { //TODO change this to only check neighbors?
             if (t->intersects_z(z)) {
-                //std::cout << "triangle intersects " << z << std::endl;
-                std::vector<std::shared_ptr<vector>> vecs = t->intersect_plane(z);
+                std::array<std::shared_ptr<vector>, 2> vecs = t->intersect_z(z);
                 auto ls = std::make_shared<linesegment>(vecs);
-                for (auto v : vecs) {
-                    v->insert_linesegment(ls);
-                }
                 linelist.push_back(ls);
             }
         }
         layer l(linelist);
-        return l;*/
+        return l;
     }
 
     std::vector<layer> model::slice(float layer_height) {
-        /*std::vector<layer> layer_vec;
+        std::vector<layer> layers;
         for (float z = this->lowest_z(); z < this->highest_z(); z += layer_height) {
             //slice the model at z
-            layer linelist(this->slice_at_z(z));
-            //stitch intersections into loops
-            std::vector<std::vector<std::shared_ptr<linesegment>>> openloops = samurai::linelist_to_openloops(linelist);
-            std::vector<std::vector<std::shared_ptr<linesegment>>> closedloops = samurai::closeloops(openloops);
-            looplist_list.push_back(closedloops);
+            layer l(this->slice_at_z(z));
+            layers.push_back(l);
         }
-        return looplist_list;*/
+        return layers;
     }
 
     std::string layers_to_gcode(std::vector<layer> layers) {
@@ -188,16 +182,20 @@ namespace samurai {
 
 
     void model::rotate(float angle, std::array<float, 3> axis) {
-        for (auto vec : this->get_vectors()) {
-            vec->rotate(angle, axis);
+        for (auto v : this->get_vectors()) {
+            v->rotate(angle, axis);
         }
     }
 
     void model::translate(std::array<float, 3> vec) {
-
+        for (auto v : this->get_vectors()) {
+            v->translate(vec);
+        }
     }
 
-    bool model::add_triangle(std::shared_ptr<triangle> tri) {
+    bool model::insert_triangle(std::shared_ptr<triangle> tri) {
+        //there should be no duplicate triangles in an STL file.
+        //if necessary, check for existing equivalent triangle
         this->triangles.push_back(tri);
         return true;
     }
@@ -214,12 +212,7 @@ namespace samurai {
         return vectors;
     }
 
-    bool model::insert_vector(std::shared_ptr<vector> vec) {
-        this->vectors.push_back(vec);
-        return true;
-    }
-
-    std::shared_ptr<vector> model::get_or_create_vector(std::array<float, 3> pnt) {
+    std::shared_ptr<vector> model::insert_vector(std::array<float, 3> pnt) {
         // TODO this is SUPER slow
         auto newvec = std::make_shared<vector>(pnt);
         for (auto vec : vectors) {
@@ -227,28 +220,50 @@ namespace samurai {
                 return vec; //true for found
             }
         }
+        vectors.push_back(newvec);
         return newvec;
     }
 
-    std::shared_ptr<linesegment> model::get_or_create_linesegment(std::array<std::shared_ptr<vector>, 2> vectors) {
-        auto newls = std::make_shared<linesegment>(vectors);
+    std::shared_ptr<linesegment> model::insert_linesegment(std::array<std::shared_ptr<vector>, 2> vecs) {
+        auto newls = std::make_shared<linesegment>(vecs);
         for (auto ls : linesegments) {
             if (newls->approx_equivalent(ls)) {
                 return ls; //true for found
             }
         }
+        linesegments.push_back(newls);
         return newls; //false for not found*/
     }
 
-    void model::print() {
-        for (auto t : this->get_triangles()) {
-            std::cout << std::endl << "___TRIANGLE___" << std::endl;
-            for (auto v : t->get_vectors()) {
-                auto pnt = v->get_point();
-                std::cout << "{" << pnt[0] << " " << pnt[1] << " " << pnt[2] << "}" << std::endl;
+    std::shared_ptr<vector> model::insert_vector(std::shared_ptr<samurai::vector> newvec) {
+        for (auto vec : vectors) {
+            if (newvec->approx_equal(vec)) {
+                return vec; //true for found
             }
         }
+        vectors.push_back(newvec);
+        return newvec;
     }
 
+    std::shared_ptr<linesegment> model::insert_linesegment(std::shared_ptr<linesegment> newls) {
+        for (auto ls : linesegments) {
+            if (newls->approx_equivalent(ls)) {
+                return ls; //true for found
+            }
+        }
+        linesegments.push_back(newls);
+        return newls; //false for not found*/
+    }
+
+    std::ostream &operator<<(std::ostream &out, model &m) {
+        auto triangles = m.get_triangles();
+        for (auto t : triangles) {
+            std::cout << std::endl << "___TRIANGLE___" << std::endl;
+            for (auto v : t->get_vectors()) {
+                std::cout << v << std::endl;
+            }
+        }
+        return out;
+    }
 
 }

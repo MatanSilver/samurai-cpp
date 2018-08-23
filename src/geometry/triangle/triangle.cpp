@@ -106,9 +106,8 @@ namespace samurai {
         return false;
     }
 
-    std::vector<std::shared_ptr<vector>> triangle::intersect_plane(float z) {
+    std::array<std::shared_ptr<vector>, 2> triangle::intersect_z(float z) {
         throw NotImplementedException();
-        std::vector<std::shared_ptr<vector>> vector_array(vectors.begin(), vectors.end());
         /*auto demisects = [](float z, std::shared_ptr<vector> vec1, std::shared_ptr<vector> vec2, std::shared_ptr<vector> vec3) {
           if (vec1->get_point()[2] == z) {
             float p1 = vec2->get_point()[2]-z;
@@ -120,52 +119,52 @@ namespace samurai {
           return false;
         };*/
         //std::copy(vectors.begin(), vectors.end(), std::back_inserter(vector_array));
-        if (vector_array[0]->get_point()[2] == z && vector_array[1]->get_point()[2] == z) {
+        if (vectors[0]->get_point()[2] == z && vectors[1]->get_point()[2] == z) {
             // if vec 0 and vec 1 are both on plane
-            return {vector_array[0], vector_array[1]};
-        } else if (vector_array[1]->get_point()[2] == z && vector_array[2]->get_point()[2] == z) {
+            return {vectors[0], vectors[1]};
+        } else if (vectors[1]->get_point()[2] == z && vectors[2]->get_point()[2] == z) {
             // if vec 1 and vec 2 are both on plane
-            return {vector_array[1], vector_array[2]};
-        } else if (vector_array[0]->get_point()[2] == z && vector_array[2]->get_point()[2] == z) {
+            return {vectors[1], vectors[2]};
+        } else if (vectors[0]->get_point()[2] == z && vectors[2]->get_point()[2] == z) {
             // if vec 0 and vec 2 are both on plane
-            return {vector_array[0], vector_array[2]};
+            return {vectors[0], vectors[2]};
         } else { // if only one or none are on the plane
             std::shared_ptr<vector> va, vb, origin;
-            if ((vector_array[0]->get_point()[2] <= z && vector_array[1]->get_point()[2] <= z &&
-                 vector_array[2]->get_point()[2] > z) ||
-                (vector_array[0]->get_point()[2] >= z && vector_array[1]->get_point()[2] >= z &&
-                 vector_array[2]->get_point()[2] < z)
+            if ((vectors[0]->get_point()[2] <= z && vectors[1]->get_point()[2] <= z &&
+                    vectors[2]->get_point()[2] > z) ||
+                (vectors[0]->get_point()[2] >= z && vectors[1]->get_point()[2] >= z &&
+                        vectors[2]->get_point()[2] < z)
                     ) {
                 // vec 0 is low, vec 1 is low, and vec 2 is high OR
                 // vec 0 is high, vec 1 is high, and vec 2 is low
-                va = vector_array[0];
-                vb = vector_array[1];
-                origin = vector_array[2];
-            } else if ((vector_array[1]->get_point()[2] <= z && vector_array[2]->get_point()[2] <= z &&
-                        vector_array[0]->get_point()[2] > z) ||
-                       (vector_array[1]->get_point()[2] >= z && vector_array[2]->get_point()[2] >= z &&
-                        vector_array[0]->get_point()[2] < z)
+                va = vectors[0];
+                vb = vectors[1];
+                origin = vectors[2];
+            } else if ((vectors[1]->get_point()[2] <= z && vectors[2]->get_point()[2] <= z &&
+                    vectors[0]->get_point()[2] > z) ||
+                       (vectors[1]->get_point()[2] >= z && vectors[2]->get_point()[2] >= z &&
+                               vectors[0]->get_point()[2] < z)
                     ) {
                 // vec 0 is high, vec 1 is low, and vec 2 is low OR
                 // vec 0 is low, vec 1 is high, and vec 2 is high
-                va = vector_array[1];
-                vb = vector_array[2];
-                origin = vector_array[0];
-            } else if ((vector_array[0]->get_point()[2] <= z && vector_array[2]->get_point()[2] <= z &&
-                        vector_array[1]->get_point()[2] > z) ||
-                       (vector_array[0]->get_point()[2] >= z && vector_array[2]->get_point()[2] >= z &&
-                        vector_array[1]->get_point()[2] < z)
+                va = vectors[1];
+                vb = vectors[2];
+                origin = vectors[0];
+            } else if ((vectors[0]->get_point()[2] <= z && vectors[2]->get_point()[2] <= z &&
+                    vectors[1]->get_point()[2] > z) ||
+                       (vectors[0]->get_point()[2] >= z && vectors[2]->get_point()[2] >= z &&
+                               vectors[1]->get_point()[2] < z)
                     ) {
                 // vec 0 is low, vec 1 is high, and vec 2 is low OR
                 // vec 0 is high, vec 1 is low, and vec 2 is high
-                va = vector_array[0];
-                vb = vector_array[2];
-                origin = vector_array[1];
+                va = vectors[0];
+                vb = vectors[2];
+                origin = vectors[1];
             } else {
                 //std::cout << "didn't satisfy\n";
-                std::cout << vector_array[0] << std::endl
-                          << vector_array[1] << std::endl
-                          << vector_array[2] << std::endl;
+                std::cout << vectors[0] << std::endl
+                          << vectors[1] << std::endl
+                          << vectors[2] << std::endl;
 
             } // TODO add case where one is on the plane and the other two are alternating
             //TODO fails here

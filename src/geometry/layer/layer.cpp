@@ -4,40 +4,29 @@
 #include "layer.hpp"
 #include "loop.hpp"
 #include "ring.hpp"
+#include "utils.hpp"
 
 namespace samurai {
-    layer::layer(std::list<loop> looplist) {
+    layer::layer(std::vector<loop> looplist) {
         loops = looplist;
+        //stitch intersections into loops
+        closeloops();
     }
 
-    layer::layer(std::list<std::shared_ptr<linesegment>> linelist) {
-        loops = linelist_to_loops(linelist);
+    layer::layer(std::vector<std::shared_ptr<linesegment>> lines) {
+        for (auto ls : lines) {
+            loop l(ls);
+            loops.push_back(loop(ls));
+        }
+        //stitch intersections into loops
+        closeloops();
     }
 
-    std::list<loop> layer::get_loops() {
+    std::vector<loop> layer::get_loops() {
         return loops;
     }
 
-    std::list<loop> layer::linelist_to_loops(std::list<std::shared_ptr<linesegment>> linelist) {
-        /*
-        ring<loop> r = ring<loop>();
-        for (auto l : linelist) {
-          loop(std::list<std::shared_ptr<linesegment>> lines)
-          std::list<std::shared_ptr<linesegment>> tmplinelist = {l};
-          loop newloop
-          ringbuff.add(loop(tmplinelist));
-        }
-        while(ringbuff.proceed()) {
-          baseloop = ringbuff.get_val();
-          while (ringbuff.proceed()) {
-            cmploop = ringbuff.get_val();
-            bool success = baseloop.join_loop(cmploop);
-            if (success) {
-              //remove cmploop from buffer
-              ringbuff.remove()
-            }
-          }
-        }
-         */
+    bool layer::closeloops() {
+        throw NotImplementedException();
     }
 }
