@@ -8,7 +8,10 @@
 
 namespace samurai {
     layer::layer(std::vector<loop> looplist) {
-        loops = looplist;
+        loops_adversary = looplist;
+        loop l = loops_adversary.front();
+        loops.push_back(l);
+        loops_adversary.erase(loops_adversary.begin());
         //stitch intersections into loops
         closeloops();
     }
@@ -16,8 +19,11 @@ namespace samurai {
     layer::layer(std::vector<std::shared_ptr<linesegment>> lines) {
         for (auto ls : lines) {
             loop l(ls);
-            loops.push_back(loop(ls));
+            loops_adversary.push_back(loop(ls));
         }
+        loop l = loops_adversary.front();
+        loops.insert(loops.begin(), l);
+        loops_adversary.erase(loops_adversary.begin());
         //stitch intersections into loops
         closeloops();
     }
@@ -27,6 +33,24 @@ namespace samurai {
     }
 
     bool layer::closeloops() {
-        throw NotImplementedException();
+        //throw NotImplementedException();
+        //TODO implement
+        bool goOn = true;
+        while(goOn) {
+            for (auto l1 : loops) {
+                for (auto l2 : loops_adversary) {
+
+                }
+            }
+        }
+    }
+
+    bool layer::all_closed() {
+        for (auto l : loops) {
+            if (!l.is_closed()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

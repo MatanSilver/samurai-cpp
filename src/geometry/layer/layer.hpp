@@ -3,6 +3,7 @@
 #include <list>
 #include "artifact.hpp"
 #include "loop.hpp"
+#include "ring.hpp"
 
 namespace samurai {
     class linesegment;
@@ -10,6 +11,7 @@ namespace samurai {
     class layer : public artifact {
     private:
         std::vector<loop> loops;
+        std::vector<loop> loops_adversary;
 
     public:
         //initialize with a list of lines
@@ -21,5 +23,7 @@ namespace samurai {
         bool closeloops();
 
         std::vector<loop> get_loops();
+
+        bool all_closed();
     };
 }
