@@ -2,7 +2,7 @@
 
 #include <list>
 #include "artifact.hpp"
-#include "geometry/loops/loop.hpp"
+#include "loop.hpp"
 
 namespace samurai {
     class linesegment;

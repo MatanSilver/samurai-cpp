@@ -9,7 +9,7 @@ set(SOURCE_FILES
         src/config/json.hpp
         src/geometry/layer/layer.cpp
         src/geometry/layer/layer.hpp
-        src/geometry/layer/loop.hpp
+        src/geometry/loop/loop.hpp
         src/geometry/linesegment/linesegment.cpp
         src/geometry/linesegment/linesegment.hpp
         src/geometry/model/model.cpp
@@ -33,7 +33,7 @@ set(UNIT_SOURCE_FILES
         src/config/json.hpp
         src/geometry/layer/layer.cpp
         src/geometry/layer/layer.hpp
-        src/geometry/layer/loop.hpp
+        src/geometry/loop/loop.hpp
         src/geometry/linesegment/linesegment.cpp
         src/geometry/linesegment/linesegment.hpp
         src/geometry/model/model.cpp
@@ -54,7 +54,9 @@ set(UNIT_SOURCE_FILES
         src/geometry/linesegment/test_linesegment.cpp
         src/geometry/model/test_model.cpp
         src/geometry/triangle/test_triangle.cpp
-        src/geometry/vector/test_vector.cpp src/ring/test_ring.cpp)
+        src/geometry/vector/test_vector.cpp
+        src/ring/test_ring.cpp
+        src/loop/test_loop.cpp)
 set(INCLUDE_DIRS
         src
         src/ring
@@ -66,6 +68,7 @@ set(INCLUDE_DIRS
         src/geometry/model
         src/geometry/triangle
         src/geometry/vector
+        src/geometry/loop
         )
 include_directories(${INCLUDE_DIRS})
 
