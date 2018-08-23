@@ -56,7 +56,7 @@ set(UNIT_SOURCE_FILES
         src/geometry/triangle/test_triangle.cpp
         src/geometry/vector/test_vector.cpp
         src/ring/test_ring.cpp
-        src/loop/test_loop.cpp)
+        src/geometry/loop/test_loop.cpp)
 set(INCLUDE_DIRS
         src
         src/ring
