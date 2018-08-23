@@ -8,6 +8,6 @@
 #include "linesegment.hpp"
 #include "loop.hpp"
 
-TEST_CASE("Testing linesegment functionality", "[linesegment]") {
+TEST_CASE("Testing loop functionality", "[loop]") {
 
 }

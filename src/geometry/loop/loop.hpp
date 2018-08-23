@@ -87,6 +87,8 @@ namespace samurai {
 
 
         bool contains(std::shared_ptr<linesegment> line) {
+            throw NotImplementedException();
+            //TODO implement
             for (auto l : lines) {
                 if (line == l) {
                     return true;
@@ -95,7 +97,25 @@ namespace samurai {
             return false;
         }
 
+
+        bool is_ordered() {
+            throw NotImplementedException();
+            //TODO implement
+            /*
+            size_t len = lines.size();
+            for (int i = 0; i < len - 1; i++) {
+                if (!vector_approx((*loop)[i + 1]->get_vectors()[0], (*loop)[i]->get_vectors()[1])) {
+                    return false;
+                }
+            }
+            return true;
+             */
+        }
+
+
         void flip() {
+            //TODO implement
+            throw NotImplementedException();
             for (auto l : lines) {
                 l->flip();
             }
@@ -103,7 +123,9 @@ namespace samurai {
             this->flipped = true;
         }
 
-        inline bool closed() {
+        inline bool is_closed() {
+            //TODO implement
+            throw NotImplementedException();
             return (std::get<0>(lines.front()->adjacent(lines.back())) && lines.size() > 2);
         }
     };
