@@ -54,23 +54,11 @@ namespace samurai {
         std::shared_ptr<linesegment> insert_linesegment(std::shared_ptr<linesegment> newls);
     };
 
-    bool is_ordered(std::vector<std::shared_ptr<linesegment>> *loop);
-
     bool are_joined(std::shared_ptr<linesegment> ls1, std::shared_ptr<linesegment> ls2);
-
-    bool is_closed(std::vector<std::shared_ptr<linesegment>> *ll);
 
     bool vector_approx(std::shared_ptr<vector> vec1, std::shared_ptr<vector>);
 
     void flip(std::vector<std::shared_ptr<linesegment>> *ll);
-
-    //deprecate
-    std::vector<std::vector<std::shared_ptr<linesegment>>>
-    linelist_to_openloops(std::vector<std::shared_ptr<linesegment>>);
-
-    //deprecate
-    std::vector<std::vector<std::shared_ptr<linesegment>>>
-    closeloops(std::vector<std::vector<std::shared_ptr<linesegment>>>);
 
     bool splice_in_list(std::vector<std::shared_ptr<linesegment>> &ll1, std::vector<std::shared_ptr<linesegment>> &ll2);
 

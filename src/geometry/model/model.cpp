@@ -43,18 +43,11 @@ namespace samurai {
         return "test";
     }
 
-    std::vector<std::vector<std::shared_ptr<linesegment>>>
-    linelist_to_openloops(std::vector<std::shared_ptr<linesegment>> linelist) {
-        std::vector<std::vector<std::shared_ptr<linesegment>>> openloops;
-        for (auto line : linelist) {
-            openloops.push_back({line});
-        }
-        return openloops;
-    }
-
     bool
     splice_in_list(std::vector<std::shared_ptr<linesegment>> *ll1, std::vector<std::shared_ptr<linesegment>> *ll2) {
-
+        throw NotImplementedException();
+        //TODO implement
+        /*
         if (!is_ordered(ll1) || !is_ordered(ll2)) {
             std::cout << "illegal splice of unordered list" << std::endl;
             throw std::runtime_error("illegal splice of unordered list");
@@ -79,9 +72,9 @@ namespace samurai {
             return false;
         }
         return true;
+         */
     }
 
-    //void flip(std::vector<std::shared_ptr<linesegment>> *ll);
     void flip(std::vector<std::shared_ptr<linesegment>> *ll) {
         std::reverse(ll->begin(), ll->end());
         for (auto ls : *ll) {
@@ -99,16 +92,6 @@ namespace samurai {
         return false;
     }
 
-    bool is_ordered(std::vector<std::shared_ptr<linesegment>> *loop) {
-        size_t len = loop->size();
-        for (int i = 0; i < len - 1; i++) {
-            if (!vector_approx((*loop)[i + 1]->get_vectors()[0], (*loop)[i]->get_vectors()[1])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     bool are_joined(std::shared_ptr<linesegment> ls1, std::shared_ptr<linesegment> ls2) {
         /*std::vector<std::shared_ptr<vector>> ls1v = ls1->get_vectors();
         std::vector<std::shared_ptr<vector>> ls2v = ls2->get_vectors();
@@ -117,51 +100,6 @@ namespace samurai {
             return true;
         } else if (ls1v[1]->get_point() == ls2v[0]->get_point())
             return false;*/
-    }
-
-    bool is_closed(std::vector<std::shared_ptr<linesegment>> *loop) {
-        if (is_ordered(loop) && are_joined((*loop)[0], (*loop)[loop->size() - 1])) {
-            return true;
-        }
-        return false;
-    }
-
-    std::vector<std::vector<std::shared_ptr<linesegment>>>
-    closeloops(std::vector<std::vector<std::shared_ptr<linesegment>>> openloops) {
-        std::vector<std::vector<std::shared_ptr<linesegment>>> closedloops;
-        int tries = 0;
-        while (openloops.size() > 1) {
-            size_t iters = openloops.size() - 1;
-            std::cout << openloops.size();
-            const size_t iters_c = iters;
-            for (int i = 0; i < iters; i++) { //iterate over all but the last
-                bool result = splice_in_list(&openloops[i], &openloops[iters_c]);
-                if (result == true) {
-                    std::cout << "able to splice" << std::endl;
-                    tries = 0;
-                    openloops.pop_back(); //cut off last element
-                    iters--;
-                    if (is_closed(&openloops[i]) == true) {
-                        closedloops.push_back(openloops[i]);
-                        i--;
-                        if (openloops.size() > 1) {
-                            //remove openloops[i]
-                            openloops.erase(openloops.begin() + i);
-                        } else {
-                            openloops = {};
-                        }
-                    }
-                } else {
-                    tries++;
-                    if (tries > 10) {
-                        std::cout << "another try" << std::endl;
-                        throw std::runtime_error("unable to stitch loops");
-                    }
-                }
-                tries++;
-            }
-        }
-        return closedloops;
     }
 
     float model::highest_z() {
