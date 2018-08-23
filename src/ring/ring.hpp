@@ -1,5 +1,8 @@
 #pragma once
 
+#include <list>
+#include <vector>
+
 namespace samurai {
     template<typename T>
     class ringnode {
@@ -35,11 +38,25 @@ namespace samurai {
             node = NULL;
             head = NULL;
         }
+        ring(std::vector<T> data) {
+            node = NULL;
+            head = NULL;
+            for (T d : data) {
+                push(d);
+            }
+        }
+        ring(std::list<T> data) {
+            node = NULL;
+            head = NULL;
+            for (auto it = data.begin(); it != data.end(); ++it) {
+                push(*it);
+            }
+        }
         ~ring() {
-            while (this->remove() != NULL); //delete all nodes before destroying ring
+            while (this->pop() != NULL); //delete all nodes before destroying ring
         }
 
-        ringnode<T> *add(T newval) {
+        ringnode<T> *push(T newval) {
             ringnode<T> *newnode = new ringnode<T>(newval);
             //inserting first node
             if (node == NULL) {
@@ -52,11 +69,12 @@ namespace samurai {
                 newnode->set_previous(node);
                 node->get_next()->set_previous(newnode);
                 node->set_next(newnode);
+                node = newnode;
             }
             return node;
         }
 
-        ringnode<T> *remove() { //returns pointer to next node or NULL if empty
+        ringnode<T> *pop() { //returns pointer to next node or NULL if empty
             if (node == NULL) return NULL;
             ringnode<T> *newnode = node->get_next();
 
