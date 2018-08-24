@@ -11,8 +11,8 @@ namespace samurai {
         T val;
         ringnode<T> *next;
     public:
-        ringnode(T value){
-            this->val = value;
+        ringnode(T value) : val(value) {
+            //this->val = value;
             this->previous = NULL;
             this->next = NULL;
         }
@@ -99,15 +99,30 @@ namespace samurai {
         ringnode<T> *get_node() { return node; }
         ringnode<T> *get_next_node() { return node->get_next(); }
         ringnode<T> *get_previous_node() { return node->get_previous(); }
+        ringnode<T> *reset() { return node = head;}
+        ringnode<T> *set_head() { head = node; return node; }
+        ringnode<T> *set_node(ringnode<T> *n) {
+            //TODO add test
+            ringnode<T> *origin = node;
+            while(true) {
+                ringnode<T> *newnode = proceed();
+                if (newnode == n) {
+                    return newnode;
+                }
+                else if (newnode == origin) {
+                    //made full loop: node isn't in ring
+                    //bonus: back in original position
+                    return NULL;
+                }
+            }
+
+        }
 
         ringnode<T> *proceed() {
             if (node == NULL) {
                 return NULL;
             }
             return node = node->get_next();
-        }
-        ringnode<T> *reset() {
-            return node = head;
         }
         ringnode<T> *get_head() {
             return head;
