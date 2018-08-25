@@ -47,9 +47,9 @@ namespace samurai {
                 this->flip();
             }
             if (std::get<1>(res)) {
-                //lines.splice(lines.end(), zoop);
+                lines.splice(lines.end(), zoop.lines);
             } else {
-                //lines.splice(lines.begin(), zoop);
+                lines.splice(lines.begin(), zoop.lines);
             }
             return true;
         }

@@ -11,7 +11,7 @@ namespace samurai {
     class layer : public artifact {
     private:
         std::vector<loop> loops;
-        std::vector<loop> loops_adversary;
+        ring<loop> loopring;
 
     public:
         //initialize with a list of lines

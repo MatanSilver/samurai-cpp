@@ -8,22 +8,18 @@
 
 namespace samurai {
     layer::layer(std::vector<loop> looplist) {
-        loops_adversary = looplist;
-        loop l = loops_adversary.front();
-        loops.push_back(l);
-        loops_adversary.erase(loops_adversary.begin());
+        loopring = ring<loop>(looplist);
         //stitch intersections into loops
         closeloops();
     }
 
     layer::layer(std::vector<std::shared_ptr<linesegment>> lines) {
+        std::vector<loop> loopvec;
         for (auto ls : lines) {
             loop l(ls);
-            loops_adversary.push_back(loop(ls));
+            loopvec.push_back(loop(ls));
         }
-        loop l = loops_adversary.front();
-        loops.insert(loops.begin(), l);
-        loops_adversary.erase(loops_adversary.begin());
+        loopring = ring<loop>(loopvec);
         //stitch intersections into loops
         closeloops();
     }
@@ -36,11 +32,20 @@ namespace samurai {
         //throw NotImplementedException();
         //TODO implement
         bool goOn = true;
+        bool lastJoined;
+        ringnode<loop> *base = loopring.get_node();
         while(goOn) {
-            for (auto l1 : loops) {
-                for (auto l2 : loops_adversary) {
 
-                }
+            //if adjacent, join the two and make the base the next node
+            //adjacent, end of list, flip
+            std::tuple<bool, bool, bool> adj = base->get_val().adjacent(loopring.get_node()->get_val());
+            if ()
+            base = loopring.proceed();
+
+
+
+            if (goOn && !lastJoined) { //if last joined up, we already proceeded
+                loopring.proceed();
             }
         }
     }
