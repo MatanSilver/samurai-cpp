@@ -2,7 +2,7 @@
 // Created by Matan Silver on 8/22/18.
 //
 
-#include "catch.hpp"
+#include "catch2/catch.hpp"
 #include "ring.hpp"
 #include <fstream>
 #include <iostream>

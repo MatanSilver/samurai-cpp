@@ -26,7 +26,6 @@ set(SOURCE_FILES
         src/marshall.hpp
         src/samurai-c++.cpp
         src/utils.hpp
-        src/args/args.hxx
         src/geometry/loop/loop.cpp)
 set(UNIT_SOURCE_FILES
         src/config/config.cpp
@@ -100,17 +99,22 @@ set(INCLUDE_DIRS
         src/geometry/triangle
         src/geometry/vector
         src/geometry/loop
-        src/Catch2/single_include/catch2
-        src/args
         )
 
 add_subdirectory(src/Celero)
+add_subdirectory(src/Catch2)
+add_subdirectory(src/args)
 
 
 add_executable(samurai_c++ ${SOURCE_FILES})
 target_include_directories(samurai_c++ PRIVATE ${INCLUDE_DIRS})
+add_dependencies(samurai_c++ args)
+target_link_libraries(samurai_c++ args)
+
 add_executable(unittest ${UNIT_SOURCE_FILES})
 target_include_directories(unittest PRIVATE ${INCLUDE_DIRS})
+add_dependencies(unittest Catch2)
+target_link_libraries(unittest Catch2)
 
 add_executable(benchmark ${BENCH_SOURCE_FILES})
 target_include_directories(benchmark PRIVATE ${INCLUDE_DIRS})

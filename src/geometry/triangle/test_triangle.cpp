@@ -2,7 +2,7 @@
 // Created by Matan Silver on 8/21/18.
 //
 
-#include "catch.hpp"
+#include "catch2/catch.hpp"
 #include "vector.hpp"
 #include "triangle.hpp"
 #include "linesegment.hpp"
