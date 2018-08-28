@@ -25,7 +25,7 @@ set(SOURCE_FILES
         src/marshall.cpp
         src/marshall.hpp
         src/samurai-c++.cpp
-        src/utils.hpp src/args.hpp)
+        src/utils.hpp src/args/args.hxx)
 set(UNIT_SOURCE_FILES
         src/config/config.cpp
         src/config/config.hpp
@@ -68,6 +68,7 @@ set(INCLUDE_DIRS
         src/geometry/vector
         src/geometry/loop
         src/Catch2/single_include/catch2
+        src/args
         )
 include_directories(${INCLUDE_DIRS})
 
