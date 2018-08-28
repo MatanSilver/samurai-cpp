@@ -39,7 +39,7 @@ namespace samurai {
             //if adjacent, join the two and make the base the next node
             //adjacent, end of list, flip
             std::tuple<bool, bool, bool> adj = base->get_val().adjacent(loopring.get_node()->get_val());
-            if ()
+            //if ()
             base = loopring.proceed();
 
 

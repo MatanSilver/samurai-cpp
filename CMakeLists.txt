@@ -22,7 +22,6 @@ set(SOURCE_FILES
         src/parser/binary_stl.cpp
         src/parser/binary_stl.hpp
         src/ring/ring.hpp
-        src/catch.hpp
         src/marshall.cpp
         src/marshall.hpp
         src/samurai-c++.cpp
@@ -46,7 +45,6 @@ set(UNIT_SOURCE_FILES
         src/parser/binary_stl.cpp
         src/parser/binary_stl.hpp
         src/ring/ring.hpp
-        src/catch.hpp
         src/marshall.cpp
         src/marshall.hpp
         src/unittest.cpp
@@ -69,6 +67,7 @@ set(INCLUDE_DIRS
         src/geometry/triangle
         src/geometry/vector
         src/geometry/loop
+        src/Catch2/single_include/catch2
         )
 include_directories(${INCLUDE_DIRS})
 
