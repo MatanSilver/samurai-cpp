@@ -25,7 +25,7 @@ set(SOURCE_FILES
         src/marshall.cpp
         src/marshall.hpp
         src/samurai-c++.cpp
-        src/utils.hpp src/args/args.hxx)
+        src/utils.hpp src/args/args.hxx src/geometry/loop/loop.cpp)
 set(UNIT_SOURCE_FILES
         src/config/config.cpp
         src/config/config.hpp
@@ -54,7 +54,7 @@ set(UNIT_SOURCE_FILES
         src/geometry/triangle/test_triangle.cpp
         src/geometry/vector/test_vector.cpp
         src/ring/test_ring.cpp
-        src/geometry/loop/test_loop.cpp)
+        src/geometry/loop/test_loop.cpp src/geometry/loop/loop.cpp)
 set(INCLUDE_DIRS
         src
         src/ring
