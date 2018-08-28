@@ -4,3 +4,6 @@
 [submodule "src/args"]
 	path = src/args
 	url = https://github.com/Taywee/args.git
+[submodule "src/Celero"]
+	path = src/Celero
+	url = https://github.com/DigitalInBlue/Celero.git

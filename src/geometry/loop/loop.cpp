@@ -85,7 +85,6 @@ namespace samurai {
         return adjacent(zoop.lines);
     }
 
-
     bool loop::contains(std::shared_ptr<linesegment> line) {
         throw NotImplementedException();
         //TODO implement
@@ -96,7 +95,6 @@ namespace samurai {
         }
         return false;
     }
-
 
     bool loop::is_ordered() {
         throw NotImplementedException();
@@ -112,7 +110,6 @@ namespace samurai {
          */
     }
 
-
     void loop::flip() {
         //TODO implement
         throw NotImplementedException();
@@ -125,7 +122,7 @@ namespace samurai {
 
     bool loop::is_closed() {
         //TODO implement
-        throw NotImplementedException();
+        //throw NotImplementedException();
         return (std::get<0>(lines.front()->adjacent(lines.back())) && lines.size() > 2);
     }
 

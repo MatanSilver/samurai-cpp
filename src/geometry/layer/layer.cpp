@@ -29,7 +29,7 @@ namespace samurai {
     }
 
     bool layer::closeloops() {
-        //throw NotImplementedException();
+        throw NotImplementedException();
         //TODO implement
         bool goOn = true;
         bool lastJoined;
