@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <set>
 #include <utility>
+#include <memory>
 #include "layer.hpp"
 #include "artifact.hpp"
 

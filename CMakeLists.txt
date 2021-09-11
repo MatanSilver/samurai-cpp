@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8.2)
 project(samurai_c++)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
         src/config/config.cpp
@@ -101,7 +101,7 @@ set(INCLUDE_DIRS
         src/geometry/loop
         )
 
-add_subdirectory(src/Celero)
+#add_subdirectory(src/Celero)
 add_subdirectory(src/Catch2)
 add_subdirectory(src/args)
 
@@ -116,7 +116,7 @@ target_include_directories(unittest PRIVATE ${INCLUDE_DIRS})
 add_dependencies(unittest Catch2)
 target_link_libraries(unittest Catch2)
 
-add_executable(benchmark ${BENCH_SOURCE_FILES})
-target_include_directories(benchmark PRIVATE ${INCLUDE_DIRS})
-add_dependencies(benchmark celero)
-target_link_libraries(benchmark celero)
+#add_executable(benchmark ${BENCH_SOURCE_FILES})
+#target_include_directories(benchmark PRIVATE ${INCLUDE_DIRS})
+#add_dependencies(benchmark celero)
+#target_link_libraries(benchmark celero)

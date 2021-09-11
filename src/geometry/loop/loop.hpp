@@ -1,6 +1,7 @@
 #pragma once
 
 #include <tuple>
+#include <memory>
 #include "linesegment.hpp"
 
 namespace samurai {

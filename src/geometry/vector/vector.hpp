@@ -2,6 +2,7 @@
 
 #include <array>
 #include <vector>
+#include <memory>
 #include <set>
 #include <list>
 #include "artifact.hpp"

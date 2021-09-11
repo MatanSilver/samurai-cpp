@@ -100,6 +100,7 @@ namespace samurai {
             return true;
         } else if (ls1v[1]->get_point() == ls2v[0]->get_point())
             return false;*/
+        return false;
     }
 
     float model::highest_z() {

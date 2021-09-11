@@ -3,6 +3,7 @@
 #include <vector>
 #include <array>
 #include <set>
+#include <memory>
 #include "artifact.hpp"
 
 namespace samurai {

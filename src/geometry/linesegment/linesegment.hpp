@@ -6,6 +6,7 @@
 #include <array>
 #include <list>
 #include <tuple>
+#include <memory>
 #include "artifact.hpp"
 
 namespace samurai {
